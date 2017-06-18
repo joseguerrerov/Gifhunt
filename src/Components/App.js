@@ -40,6 +40,8 @@ class App extends Component {
   }
 
 
+
+
   render() {
     return (
       <StyleRoot>
@@ -48,8 +50,8 @@ class App extends Component {
             <Route render = {()=> <Searchbar type={this.state.barStatus}/>}/>
             <Switch>
               <Route exact path="/" component = {Home}/>
-              {/*}<Route path="/search" render = {() => <Search/>} />{*/}
-              <Route exact path="/search/:name" render = {()=><Search gifs={this.state.gifs} title={this.state.title} onLoad = {this.performSearch}/>} />
+              <Route exact path="/search/:name" render = {()=><Search gifs={this.state.gifs}
+                onLoad = {this.performSearch}/>} />
               <Route component = {Lost} />
             </Switch>
           </div>

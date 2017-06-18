@@ -27,12 +27,16 @@ class Searchbar extends Component {
 
   searchGif = e =>{
     e.preventDefault()
-    const path = `/search/${this.state.searchText}`
-    this.props.history.push(path);
+    let path
+    if(this.state.searchText === ''){
+      path = `/search/trending`
+    }else{
+      path = `/search/${this.state.searchText}`
+    }
+    this.props.history.push(path)
   }
 
   render() {
-
     const styles = {
       searchBarContainer: {
         width: '100%',
@@ -41,14 +45,15 @@ class Searchbar extends Component {
         alignItems: 'center',
         justifyContent: 'center',
         transition: '400ms',
-        height: '100%',
         default:{
           background: 'none',
           position: 'absolute',
+          height: '100%',
         },
         active:{
           background: '#fff',
           position: 'inherit',
+          height: '76px',
         },
         title:{
           color: 'yellow',
@@ -93,8 +98,8 @@ class Searchbar extends Component {
            onSubmit={this.searchGif}
         >
           <div>
-            <h1 style={styles.searchBarContainer.title}>Show me those gifs !</h1>
-            <img src={logo}/>
+            {/*}<h1 style={styles.searchBarContainer.title}>Show me those gifs !</h1>
+            <img src={logo}/>{*/}
           </div>
           <div style={styles.searchBar}>
             <input type="search"

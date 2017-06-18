@@ -6,56 +6,52 @@ import axios from 'axios'
 
 //Components
 import Gifbox from './Gifbox'
+import Emptysearch from './Emptysearch'
 
 
 class Search extends Component {
 
-  state = {
-    title: ''
-  }
 
   componentDidMount(){
     this.props.onLoad(this.props.match.params.name)
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  componentWillReceiveProps(nextProps){
 
-    if(nextProps.title !== this.state.title){
-      return true
+    if(this.props.match.params.name !== nextProps.match.params.name ){
+      console.log('tenemos que hacer algo');
+      this.props.onLoad(nextProps.match.params.name)
     }else{
-      console.log('si');
-      return false
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState){
-    if(prevProps.title !== this.props.title){
       return
-    }else{
-      this.props.onLoad(this.props.match.params.name)
     }
   }
+
 
   getGifs = () =>{
-
-    console.log(this.props.match.params.name);
-    return(
-      this.props.gifs.map(gif=>
-        <Gifbox
-          fondoGif={gif.images.preview_gif.url}
-          embed={gif.embed_url}
-          key={gif.id}
-          width="25%"
-        />
+    if(this.props.gifs.length > 0){
+      return(
+        this.props.gifs.map(gif=>
+          <Gifbox
+            fondoGif={gif.images.preview_gif.url}
+            embed={gif.embed_url}
+            key={gif.id}
+            width="25%"
+          />
+        )
       )
-    )
+    }else{
+      return(
+        <Emptysearch />
+      )
+    }
   }
 
   render() {
 
+
     const styles = {
       searchResults: {
-        minHeight: '100vh',
+        minHeight: 'calc(100vh - 76px)',
         maxWidth: '100%',
         padding: '0 0.5em',
         display: 'flex',
