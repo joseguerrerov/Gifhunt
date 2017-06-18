@@ -15,7 +15,7 @@ import Home from './Home'
 import Search from './Search'
 import Searchbar from './Searchbar'
 import Lost from './Lost'
-import Redirectsearch from './Redirectsearch'
+
 
 //Assets
 
