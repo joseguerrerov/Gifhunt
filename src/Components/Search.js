@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import Radium from 'radium'
 import {withRouter} from 'react-router-dom'
-import axios from 'axios'
+
 
 //Components
 import Gifbox from './Gifbox'
@@ -28,9 +28,10 @@ class Search extends Component {
 
 
   getGifs = () =>{
-    if(this.props.gifs.length > 0){
+    const results = this.props.gifs
+    if(results.length > 0){
       return(
-        this.props.gifs.map(gif=>
+        results.map(gif=>
           <Gifbox
             fondoGif={gif.images.preview_gif.url}
             embed={gif.embed_url}
@@ -39,7 +40,8 @@ class Search extends Component {
           />
         )
       )
-    }else{
+    }else if (results === 0){
+      console.log('hola');
       return(
         <Emptysearch />
       )
