@@ -40,7 +40,7 @@ class Search extends Component {
           />
         )
       )
-    }else if (results === 0){
+    }else if (results.length === 0){
       console.log('hola');
       return(
         <Emptysearch />
