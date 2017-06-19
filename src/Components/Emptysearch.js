@@ -1,7 +1,6 @@
 //Dependencies
 import React,{Component} from 'react'
 import Radium from 'radium'
-import { SocialIcon} from 'react-social-icons';
 
 //Assets
 
