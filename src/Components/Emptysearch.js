@@ -1,6 +1,7 @@
 //Dependencies
 import React,{Component} from 'react'
 import Radium from 'radium'
+import { Link } from 'react-router-dom'
 
 //Assets
 
@@ -24,6 +25,7 @@ class Emptysearch extends Component{
         textAlign: 'center'
       },
       trending:{
+        color: '#171717',
         display: 'flex',
         border: ' 2px solid red',
         padding: '1em',
@@ -37,13 +39,13 @@ class Emptysearch extends Component{
     return(
       <div style={styles.holder}>
         <h1 style={styles.title}>Ups, can't find that ...</h1>
-        <div style={styles.trending}>
-          <h2 style={styles.trending.message}>Check whats</h2>
-          <i className="material-icons">whatshot</i>
-        </div>
-      </div>
-    )
-  }
+        <Link to="/search/trending" replace style={styles.trending}>
+        <h2 style={styles.trending.message}>Check whats</h2>
+        <i className="material-icons">whatshot</i>
+      </Link>
+    </div>
+  )
+}
 
 }
 
