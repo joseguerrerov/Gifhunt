@@ -19,7 +19,7 @@ class Gifbox extends Component {
     const styles = {
       holder: {
         position: 'relative',
-        width: `calc(${this.state.width} - 1em)`,
+        width: `calc(100% - 1em)`,
         height: '30vh',
         margin: '0.5em',
         display: 'flex',
@@ -29,7 +29,10 @@ class Gifbox extends Component {
         backgroundImage: `url(${this.state.fondo})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
+        '@media (min-width: 600px)': {
+          width: `calc(${this.state.width} - 1em)`,
+        }
       },
       embed: {
         color: '#fff',

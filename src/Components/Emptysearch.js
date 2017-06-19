@@ -21,7 +21,8 @@ class Emptysearch extends Component{
         marginTop: '3em'
       },
       title:{
-        fontSize: '3em'
+        fontSize: '3em',
+        textAlign: 'center'
       },
       trending:{
         display: 'flex',

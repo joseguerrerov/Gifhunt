@@ -54,6 +54,7 @@ class Searchbar extends Component {
           background: '#fff',
           position: 'inherit',
           height: '76px',
+
         },
         title:{
           color: 'yellow',
@@ -62,12 +63,13 @@ class Searchbar extends Component {
         },
       },
       searchBar : {
-        width: '40%',
+        
         display: 'flex',
         justifyContent: 'center',
         backgroundColor: '#fff',
         borderRadius: '10px',
-        padding: '0.5em'
+        padding: '0.5em',
+
       },
       input:{
         width: '90%',
@@ -98,10 +100,11 @@ class Searchbar extends Component {
            onSubmit={this.searchGif}
         >
           <div>
-            {/*}<h1 style={styles.searchBarContainer.title}>Show me those gifs !</h1>
+            {/*}
+            <h1 style={styles.searchBarContainer.title}>Show me those gifs !</h1>
             <img src={logo}/>{*/}
           </div>
-          <div style={styles.searchBar}>
+          <div style={styles.searchBar} className='search-bar'>
             <input type="search"
               onChange={this.onSearchChange}
               style={styles.input}

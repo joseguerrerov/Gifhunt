@@ -8,3 +8,13 @@ body{
 a{
   text-decoration: none;
 }
+
+.search-bar{
+  width: 90%;
+}
+
+@media (min-width: 600px) {
+  .search-bar{
+    width: 40%;
+  }
+}
