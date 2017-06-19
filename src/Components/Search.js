@@ -11,25 +11,39 @@ import Emptysearch from './Emptysearch'
 
 class Search extends Component {
 
+  state = {
+    result: true
+  }
 
   componentDidMount(){
     this.props.onLoad(this.props.match.params.name)
   }
 
   componentWillReceiveProps(nextProps){
-
+    //Cehck if the next gif array is empty or not
+    if(nextProps.gifs.length > 0){
+      this.setState({
+        result: true
+      })
+    }else{
+      this.setState({
+        result: false
+      })
+    }
+    //Check if a new search must start
     if(this.props.match.params.name !== nextProps.match.params.name ){
       console.log('tenemos que hacer algo');
       this.props.onLoad(nextProps.match.params.name)
-    }else{
-      return
+      console.log('true')
     }
   }
 
 
+
+
   getGifs = () =>{
     const results = this.props.gifs
-    if(results.length > 0){
+    if(this.state.result){
       return(
         results.map(gif=>
           <Gifbox
@@ -40,7 +54,7 @@ class Search extends Component {
           />
         )
       )
-    }else if (results.length === 0){
+    }else if (!this.state.result){
       console.log('hola');
       return(
         <Emptysearch />
