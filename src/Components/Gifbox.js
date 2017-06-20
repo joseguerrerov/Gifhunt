@@ -9,7 +9,31 @@ class Gifbox extends Component {
 
   state = {
     width: this.props.width,
-    fondo : this.props.fondoGif
+    fondo : this.props.fondoGif,
+    copyStatus: false,
+    msgDisplay: 'none'
+  }
+
+  //Funcion para copiar el link al clipboard
+  copyClipboard = () =>{
+    console.log('se supone que tienes que copiar en este punto');
+    console.log(this.props.embed);
+    let textField = document.createElement('textarea')
+    textField.innerText = this.props.embed
+    document.body.appendChild(textField)
+    textField.select()
+    document.execCommand('copy')
+    textField.remove()
+    this.setState({
+      copyStatus: true,
+      msgDisplay: 'inherit',
+    })
+    setTimeout(function() {
+      this.setState({
+        copyStatus: false,
+        msgDisplay: 'none',
+      });
+    }.bind(this), 1500);
   }
 
 
@@ -35,19 +59,39 @@ class Gifbox extends Component {
         }
       },
       embed: {
-        color: '#fff',
+        color: 'rgba(255,255,255,.5)',
         position: 'absolute',
         top: '0.5em',
         right: '0.5em',
-        ':hover':{
-
-        }
+        cursor: 'pointer'
+      },
+      link:{
+        color: 'rgba(255,255,255,.5)',
+        position: 'absolute',
+        top: '0.5em',
+        left: '0.5em'
+      },
+      msg:{
+        display: this.state.msgDisplay,
+        width: '100%',
+        alignSelf: 'flex-end',
+        padding: '0.5em',
+        backgroundColor: '#64ffda',
+        color: '#000',
+        textAlign: 'center',
+        transition: '400ms'
       }
     }
 
     return (
       <div style = {styles.holder}>
-        <a href={this.props.embed} style={styles.embed}><i className="material-icons">link</i></a>
+        <i className="material-icons" style={styles.embed} onClick={this.copyClipboard}>link</i>
+        <a href ={this.props.embed} style={styles.link} target="_blank">
+          <i className="material-icons">visibility</i>
+        </a>
+        <div style={styles.msg}>
+          Gif copy to clipboard
+        </div>
       </div>
 
     );
