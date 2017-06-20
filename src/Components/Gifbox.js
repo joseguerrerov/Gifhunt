@@ -16,18 +16,15 @@ class Gifbox extends Component {
 
   //Funcion para copiar el link al clipboard
   copyClipboard = () =>{
-    console.log('se supone que tienes que copiar en este punto');
-    console.log(this.props.embed);
-    let textField = document.createElement('textarea')
-    textField.innerText = this.props.embed
-    document.body.appendChild(textField)
-    textField.select()
-    document.execCommand('copy')
-    textField.remove()
+    //Copiar
+    this.textArea.select();
+    document.execCommand('copy');
+    //Gestionar estado
     this.setState({
       copyStatus: true,
-      msgDisplay: 'inherit',
+      msgDisplay: 'block',
     })
+    //Retornar estado
     setTimeout(function() {
       this.setState({
         copyStatus: false,
@@ -80,11 +77,20 @@ class Gifbox extends Component {
         color: '#000',
         textAlign: 'center',
         transition: '400ms'
+      },
+      embedHolder:{
+        position:'absolute',
+        zIndex: '-100000',
       }
     }
 
     return (
       <div style = {styles.holder}>
+        <textarea
+          style={styles.embedHolder}
+          ref={(textarea) => this.textArea = textarea}
+          defaultValue={this.props.embed}
+         />
         <i className="material-icons" style={styles.embed} onClick={this.copyClipboard}>link</i>
         <a href ={this.props.embed} style={styles.link} target="_blank">
           <i className="material-icons">visibility</i>
