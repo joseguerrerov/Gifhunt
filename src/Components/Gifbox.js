@@ -5,7 +5,7 @@ import {withRouter} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 
-//Components
+
 
 class Gifbox extends Component {
 
@@ -27,13 +27,23 @@ class Gifbox extends Component {
 
   componentWillMount(){
     if(typeof this.props.user !== 'undefined'){
-      this.setState({
-        username: this.props.user.display_name,
-        avatar: this.props.user.avatar_url,
-        profileUrl: this.props.user.profile_url
-      })
+      if(typeof this.props.user.display_name !== 'undefined' &&
+         this.props.user.display_name !== '' &&
+         this.props.display_name !== null){
+           this.setState({
+             avatar: this.props.user.avatar_url,
+             profileUrl: this.props.user.profile_url,
+             username: this.props.user.display_name,
+           })
+        }else{
+          this.setState({
+            avatar: this.props.user.avatar_url,
+            profileUrl: this.props.user.profile_url,
+            username: this.props.user.username,
+          })
+        }
       console.log('posible');
-      console.log(this.props.user.username);
+      console.log(this.props.user.display_name);
       console.log(this.props.user.avatar_url);
     }else{
       console.log('imposible');
@@ -100,6 +110,9 @@ class Gifbox extends Component {
         cursor: 'pointer',
         fontSize: '20px'
       },
+      links:{
+        display: 'flex',
+      },
       embed:{
         margin: '0 0.4em',
       },
@@ -123,6 +136,7 @@ class Gifbox extends Component {
         borderRadius: '100%'
       },
       infoHolder:{
+        height: '73px',
         display: 'flex',
         padding: '0.3em 1em',
         width: '100%',
@@ -156,7 +170,7 @@ class Gifbox extends Component {
             defaultValue={this.props.embed}
           />
           <div style={styles.msg}>
-            Gif copy to clipboard
+            copied to clipboard
           </div>
         </div>
         <div style = {styles.infoHolder}>
@@ -164,7 +178,7 @@ class Gifbox extends Component {
             <img src={this.state.avatar} style ={styles.avatar}/>
             <h2 style={styles.infoHolder.info.username}>{this.state.username}</h2>
           </a>
-          <div>
+          <div style={styles.links}>
             <i className="material-icons" style={[styles.link, styles.embed]} onClick={this.copyClipboard}>link</i>
             <i className="material-icons" style={styles.link} onClick={this.showHdGif}>visibility</i>
           </div>
