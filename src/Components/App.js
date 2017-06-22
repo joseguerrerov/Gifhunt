@@ -13,6 +13,7 @@ import axios from 'axios'
 //Components
 import Home from './Home'
 import Search from './Search'
+import Gifview from './Gifview'
 import Searchbar from './Searchbar'
 import Lost from './Lost'
 
@@ -24,11 +25,12 @@ class App extends Component {
   state ={
     gifs: [],
     title: '',
-    barStatus : 'default'
+    barStatus : 'default',
+    gifById: '',
   }
 
   performSearch = (query = 'cats') =>{
-    let apiEndPoint ='https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=20'
+    let apiEndPoint ='https://api.giphy.com/v1/gifs/trending?api_key=1dbc2f313ec44971b8ee0815b6951dca&limit=20'
     if(query === 'trending'){
 
     }else{
@@ -47,6 +49,19 @@ class App extends Component {
     })
   }
 
+  getGifById = (id) =>{
+    const apiEndPoint = `https://api.giphy.com/v1/gifs/${id}?api_key=1dbc2f313ec44971b8ee0815b6951dca`
+    axios.get(apiEndPoint)
+    .then(response =>{
+      this.setState({
+        gifById : response.data.data,
+      })
+    })
+    .catch(error => {
+      console.log('Error fetching and parsing data')
+    })
+  }
+
 
 
 
@@ -60,6 +75,7 @@ class App extends Component {
               <Route exact path="/" component = {Home}/>
               <Route exact path="/search" render={() => ( <Redirect to="/search/trending"/>)}/>
               <Route exact path="/search/:name" render = {()=><Search gifs={this.state.gifs} onLoad = {this.performSearch}/>} />
+              <Route exact path="/gif/:id" render ={ () => <Gifview gif={this.state.gifById} onLoad={this.getGifById}/>}/>
               <Route component = {Lost} />
             </Switch>
           </div>
