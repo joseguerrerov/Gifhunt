@@ -52,7 +52,6 @@ class Search extends Component {
             key={gif.id}
             id={gif.id}
             user={gif.user}
-            avatar={gif.avatar_url}
             width="25%"
           />
         )

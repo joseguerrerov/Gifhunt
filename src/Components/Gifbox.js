@@ -22,6 +22,7 @@ class Gifbox extends Component {
     msgDisplay: 'none',
     username: 'Giphy',
     avatar: 'https://media1.giphy.com/avatars/studiosoriginals/j3JBzK5twdv8.jpg',
+    profileUrl : 'https://giphy.com/'
   }
 
   componentWillMount(){
@@ -29,6 +30,7 @@ class Gifbox extends Component {
       this.setState({
         username: this.props.user.display_name,
         avatar: this.props.user.avatar_url,
+        profileUrl: this.props.user.profile_url
       })
       console.log('posible');
       console.log(this.props.user.username);
@@ -39,7 +41,8 @@ class Gifbox extends Component {
   }
 
   //Funcion para copiar el link al clipboard
-  copyClipboard = () =>{
+  copyClipboard = (e) =>{
+    e.preventDefault()
     //Copiar
     this.textArea.select();
     document.execCommand('copy');
@@ -129,7 +132,9 @@ class Gifbox extends Component {
           display: 'flex',
           alignItems:'center',
           justifyContent: 'center',
+          cursor : 'pointer',
           username:{
+            color: '#171717',
             fontWeight:'300',
             fontSize: '1em',
             marginLeft: '0.4em',
@@ -145,6 +150,7 @@ class Gifbox extends Component {
       <div style = {styles.holder}>
         <div style={styles.gif}>
           <textarea
+            readOnly='true'
             style={styles.embedHolder}
             ref={(textarea) => this.textArea = textarea}
             defaultValue={this.props.embed}
@@ -154,10 +160,10 @@ class Gifbox extends Component {
           </div>
         </div>
         <div style = {styles.infoHolder}>
-          <div style ={styles.infoHolder.info} >
+          <a style ={styles.infoHolder.info} href={this.state.profileUrl} target='_blank'>
             <img src={this.state.avatar} style ={styles.avatar}/>
             <h2 style={styles.infoHolder.info.username}>{this.state.username}</h2>
-          </div>
+          </a>
           <div>
             <i className="material-icons" style={[styles.link, styles.embed]} onClick={this.copyClipboard}>link</i>
             <i className="material-icons" style={styles.link} onClick={this.showHdGif}>visibility</i>
