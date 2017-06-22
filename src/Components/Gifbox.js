@@ -94,7 +94,11 @@ class Gifbox extends Component {
       },
       link: {
         color: '#171717',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        fontSize: '20px'
+      },
+      embed:{
+        margin: '0 0.4em',
       },
       msg:{
         display: this.state.msgDisplay,
@@ -155,7 +159,7 @@ class Gifbox extends Component {
             <h2 style={styles.infoHolder.info.username}>{this.state.username}</h2>
           </div>
           <div>
-            <i className="material-icons" style={styles.link} onClick={this.copyClipboard}>link</i>
+            <i className="material-icons" style={[styles.link, styles.embed]} onClick={this.copyClipboard}>link</i>
             <i className="material-icons" style={styles.link} onClick={this.showHdGif}>visibility</i>
           </div>
         </div>

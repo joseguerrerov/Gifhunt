@@ -63,7 +63,7 @@ class Searchbar extends Component {
         },
       },
       searchBar : {
-        
+
         display: 'flex',
         justifyContent: 'center',
         backgroundColor: '#fff',
