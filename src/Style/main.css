@@ -17,6 +17,10 @@ a{
   width: 90%;
 }
 
+textarea{
+   resize: none;
+}
+
 @media (min-width: 600px) {
   .search-bar{
     width: 40%;

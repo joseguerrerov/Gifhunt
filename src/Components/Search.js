@@ -48,11 +48,12 @@ class Search extends Component {
         results.map(gif=>
           <Gifbox
             fondoGif={gif.images.preview_gif.url}
-            embed={gif.embed_url}
+            embed={gif.images.fixed_height.url}
             key={gif.id}
             id={gif.id}
             user={gif.user}
-            width="25%"
+            width="33.33%"
+            height= '40vh'
           />
         )
       )
@@ -74,9 +75,8 @@ class Search extends Component {
         padding: '0 0.5em',
         display: 'flex',
         flexWrap: 'wrap',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        backgroundColor: '#fff',
+        alignItems: 'flex-start',
+        marginTop: '1em',
       },
     }
 

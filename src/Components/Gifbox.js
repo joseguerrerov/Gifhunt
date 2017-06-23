@@ -4,7 +4,9 @@ import Radium from 'radium'
 import {withRouter} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-
+//Components
+import Profileinfo from './Profileinfo'
+import Socialfot from './Socialfot'
 
 
 class Gifbox extends Component {
@@ -17,6 +19,7 @@ class Gifbox extends Component {
 
   state = {
     width: this.props.width,
+    height: this.props.height,
     fondo : this.props.fondoGif,
     copyStatus: false,
     msgDisplay: 'none',
@@ -101,20 +104,9 @@ class Gifbox extends Component {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        height: '30vh',
+        height: this.state.height,
         width: '100%'
 
-      },
-      link: {
-        color: '#171717',
-        cursor: 'pointer',
-        fontSize: '20px'
-      },
-      links:{
-        display: 'flex',
-      },
-      embed:{
-        margin: '0 0.4em',
       },
       msg:{
         display: this.state.msgDisplay,
@@ -129,39 +121,17 @@ class Gifbox extends Component {
       embedHolder:{
         position:'absolute',
         zIndex: '-100000',
+        outline: 'none',
+        border: 'none',
       },
-      avatar:{
-        height: '20px',
-        width: '20px',
-        borderRadius: '100%'
-      },
-      infoHolder:{
-        height: '73px',
-        display: 'flex',
-        padding: '0.3em 1em',
-        width: '100%',
-        justifyContent: 'space-between',
-        alignItems:'center',
-        info:{
-          display: 'flex',
-          alignItems:'center',
-          justifyContent: 'center',
-          cursor : 'pointer',
-          username:{
-            color: '#171717',
-            fontWeight:'300',
-            fontSize: '1em',
-            marginLeft: '0.4em',
-          }
-        },
 
-      }
     }
 
 
 
     return (
       <div style = {styles.holder}>
+        <Profileinfo username={this.state.username} avatar={this.state.avatar} href={this.state.profileUrl}/>
         <div style={styles.gif}>
           <textarea
             readOnly='true'
@@ -173,16 +143,7 @@ class Gifbox extends Component {
             copied to clipboard
           </div>
         </div>
-        <div style = {styles.infoHolder}>
-          <a style ={styles.infoHolder.info} href={this.state.profileUrl} target='_blank'>
-            <img src={this.state.avatar} style ={styles.avatar}/>
-            <h2 style={styles.infoHolder.info.username}>{this.state.username}</h2>
-          </a>
-          <div style={styles.links}>
-            <i className="material-icons" style={[styles.link, styles.embed]} onClick={this.copyClipboard}>link</i>
-            <i className="material-icons" style={styles.link} onClick={this.showHdGif}>visibility</i>
-          </div>
-        </div>
+        <Socialfot embed={this.copyClipboard} show={this.showHdGif}/>
       </div>
 
     );
