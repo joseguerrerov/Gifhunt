@@ -34,7 +34,12 @@ class Gifview extends Component {
     if(this.state.result){
       console.log(this.state.gif);
       return(
-        <Gifbox fondoGif={this.state.gif.images.downsized_medium.url} height="70vh" width="60%"/>
+        <Gifbox
+          fondoGif={this.state.gif.images.downsized_large.url}
+          embed={this.state.gif.images.fixed_height.url}
+          user={this.state.gif.user}
+          height="70vh"
+          width="60%"/>
       )
     }else if (!this.state.result){
       console.log('hola');

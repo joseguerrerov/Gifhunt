@@ -34,8 +34,12 @@ class Socialfot extends Component {
     return (
       <div style = {styles.infoHolder}>
         <div style={styles.links}>
-          <i className="material-icons" style={[styles.link, styles.embed]} onClick={this.props.embed}>link</i>
-          <i className="material-icons" style={styles.link} onClick={this.props.show}>visibility</i>
+          {this.props.embed &&
+            <i className="material-icons" style={[styles.link, styles.embed]} onClick={this.props.embedAction}>link</i>
+          }
+          {this.props.show &&
+            <i className="material-icons" style={styles.link} onClick={this.props.showAction}>visibility</i>
+          }
         </div>
       </div>
     );

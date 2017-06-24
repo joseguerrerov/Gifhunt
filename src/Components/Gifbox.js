@@ -74,8 +74,8 @@ class Gifbox extends Component {
   }
 
   showHdGif = () =>{
-    console.log(`estas clickeando en ${this.props.id}`)
-    this.props.history.push(`/gif/${this.props.id}`)
+    console.log(`estas clickeando en ${this.props.show}`)
+    this.props.history.push(`/gif/${this.props.show}`)
   }
 
 
@@ -143,13 +143,14 @@ class Gifbox extends Component {
             copied to clipboard
           </div>
         </div>
-        <Socialfot embed={this.copyClipboard} show={this.showHdGif}/>
+        <Socialfot embedAction={this.copyClipboard} showAction={this.showHdGif} embed={this.props.embed} show={this.props.show}/>
       </div>
 
     );
   }
 
 }
+
 Gifbox = Radium(Gifbox)
 Gifbox = withRouter(Gifbox)
 export default Gifbox;

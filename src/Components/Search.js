@@ -49,8 +49,8 @@ class Search extends Component {
           <Gifbox
             fondoGif={gif.images.preview_gif.url}
             embed={gif.images.fixed_height.url}
+            show={gif.id}
             key={gif.id}
-            id={gif.id}
             user={gif.user}
             width="33.33%"
             height= '40vh'
