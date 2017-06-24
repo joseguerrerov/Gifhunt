@@ -24,9 +24,10 @@ class Gifview extends Component {
       this.setState({
         result: true,
         gif : nextProps.gif,
-        fondo: nextProps.gif.images.downsized_medium.url,
+        fondo: nextProps.gif.images.downsized_large.url,
         embed: nextProps.gif.images.fixed_height.url,
         user: nextProps.gif.user,
+        slug: nextProps.gif.slug
       })
     }
   }
@@ -48,7 +49,7 @@ class Gifview extends Component {
         flexWrap: 'wrap',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: '#fff',
+        backgroundColor: '#fafafa',
       },
     }
 
@@ -59,7 +60,9 @@ class Gifview extends Component {
           embed={this.state.embed}
           user={this.state.user}
           height="70vh"
-          width="60%"/>
+          width="60%"
+          size="contain"
+        />
           <div style= {styles.recomended}>
             {this.getRecomended()}
           </div>

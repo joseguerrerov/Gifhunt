@@ -8,6 +8,9 @@ import PropTypes from 'prop-types'
 import Profileinfo from './Profileinfo'
 import Socialfot from './Socialfot'
 
+//Assets
+import load from '../Img/ripple.gif'
+
 
 class Gifbox extends Component {
 
@@ -21,6 +24,7 @@ class Gifbox extends Component {
     width: this.props.width,
     height: this.props.height,
     fondo : this.props.fondoGif,
+    size: this.props.size,
     copyStatus: false,
     msgDisplay: 'none',
     username: '',
@@ -28,7 +32,7 @@ class Gifbox extends Component {
     profileUrl : ''
   }
 
-  componentWillMount(){
+  componentDidMount(){
     if(this.props.instant){
       this.checkForUserInfo(this.props.user)
       this.setState({
@@ -40,7 +44,8 @@ class Gifbox extends Component {
   componentWillReceiveProps(nextProps){
     this.setState({
       fondo: nextProps.fondoGif,
-      embed: nextProps.embed
+      embed: nextProps.embed,
+      size: nextProps.size
     })
     this.checkForUserInfo(nextProps.user)
   }
@@ -101,10 +106,12 @@ class Gifbox extends Component {
 
   render() {
 
+    console.log(this.props.slug);
+
     const styles = {
       holder: {
         width: `calc(100% - 1em)`,
-        margin: '0.5em',
+        margin: '1em 0.5em 0.5em 0.5em',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -120,7 +127,7 @@ class Gifbox extends Component {
         position: 'relative',
         backgroundColor: '#efefef',
         backgroundImage: `url(${this.state.fondo})`,
-        backgroundSize: 'cover',
+        backgroundSize: this.state.size,
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         height: this.state.height,

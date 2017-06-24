@@ -54,6 +54,7 @@ class Searchbar extends Component {
           background: '#fff',
           position: 'inherit',
           height: '76px',
+          marginBottom: '0.5em'
 
         },
         title:{
@@ -69,6 +70,7 @@ class Searchbar extends Component {
         backgroundColor: '#fff',
         borderRadius: '10px',
         padding: '0.5em',
+        marginBottom: '0.5em',
 
       },
       input:{

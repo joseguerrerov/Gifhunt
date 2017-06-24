@@ -47,14 +47,16 @@ class Search extends Component {
       return(
         results.map(gif=>
           <Gifbox
-            fondoGif={gif.images.preview_gif.url}
+            fondoGif={gif.images.fixed_width.url}
             embed={gif.images.fixed_height.url}
+            slug={gif.slug}
             show={gif.id}
             key={gif.id}
             user={gif.user}
             width="33.33%"
             height= '40vh'
             instant
+            size="cover"
           />
         )
       )

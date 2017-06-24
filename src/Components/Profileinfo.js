@@ -11,18 +11,11 @@ class Profileinfo extends Component {
 
 
     const styles = {
-      avatar:{
-        height: '20px',
-        width: '20px',
+      avatarActive:{
+        height: '25px',
+        width: '25px',
         borderRadius: '100%',
         backgroundColor: '#efefef',
-        backgroundPosition: 'center',
-        backgroundSize: 'contain'
-      },
-      avatarActive:{
-        height: '20px',
-        width: '20px',
-        borderRadius: '100%',
         backgroundImage: `url(${this.props.avatar})`,
         backgroundPosition: 'center',
         backgroundSize: 'contain'
@@ -51,11 +44,13 @@ class Profileinfo extends Component {
             height: '20px'
           },
           usernameActive:{
+            display: 'flex',
+            alignItems: 'center',
             color: '#171717',
             fontWeight:'300',
             fontSize: '1em',
             marginLeft: '0.4em',
-            height: '20px'
+            height: '25px'
           }
         },
 
@@ -65,12 +60,7 @@ class Profileinfo extends Component {
     return (
       <div style = {styles.infoHolder}>
         <a style ={styles.infoHolder.info} href={this.props.href} target='_blank'>
-          {this.props.avatar.length > 0 &&
-            <div style ={styles.avatarActive}></div>
-          }
-          {this.props.avatar.length === 0 &&
-            <div style ={styles.avatar}></div>
-          }
+          <div style ={styles.avatarActive}></div>
           {this.props.username.length > 0 &&
             <div style={styles.infoHolder.info.usernameActive}>{this.props.username}</div>
           }

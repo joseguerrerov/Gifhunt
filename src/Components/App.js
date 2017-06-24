@@ -29,12 +29,13 @@ class App extends Component {
     gifById: {},
   }
 
-  performSearch = (query = 'cats') =>{
-    let apiEndPoint ='https://api.giphy.com/v1/gifs/trending?api_key=1dbc2f313ec44971b8ee0815b6951dca&limit=21'
+  //function to search
+  performSearch = (query = 'cats', limit = 21) =>{
+    let apiEndPoint =`https://api.giphy.com/v1/gifs/trending?api_key=1dbc2f313ec44971b8ee0815b6951dca&limit=${limit}`
     if(query === 'trending'){
 
     }else{
-      apiEndPoint = `https://api.giphy.com/v1/gifs/search?q=${query}&limit=21&lang=est&api_key=dc6zaTOxFJmzC`
+      apiEndPoint = `https://api.giphy.com/v1/gifs/search?q=${query}&limit=${limit}&lang=est&api_key=dc6zaTOxFJmzC`
     }
     axios.get(apiEndPoint)
     .then(response => {
@@ -49,6 +50,7 @@ class App extends Component {
     })
   }
 
+  //Function to search by gifid
   getGifById = (id = '26gR0t9sNVrbVEhPO') => {
     axios.get(`https://api.giphy.com/v1/gifs/${id}?api_key=1dbc2f313ec44971b8ee0815b6951dca`)
     .then(response =>{
