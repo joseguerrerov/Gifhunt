@@ -31,6 +31,9 @@ class Gifbox extends Component {
   componentWillMount(){
     if(this.props.instant){
       this.checkForUserInfo(this.props.user)
+      this.setState({
+        embed: this.props.embed
+      })
     }
   }
 
@@ -71,8 +74,9 @@ class Gifbox extends Component {
   //Funcion para copiar el link al clipboard
   copyClipboard = (e) =>{
     e.preventDefault()
-    //Copiar
+    //Copia
     this.textArea.select();
+    console.log(this.textArea.select());
     document.execCommand('copy');
     //Gestionar estado
     this.setState({
@@ -142,8 +146,6 @@ class Gifbox extends Component {
 
     }
 
-
-
     return (
       <div style = {styles.holder}>
         <Profileinfo username={this.state.username} avatar={this.state.avatar} href={this.state.profileUrl}/>
@@ -152,13 +154,13 @@ class Gifbox extends Component {
             readOnly='true'
             style={styles.embedHolder}
             ref={(textarea) => this.textArea = textarea}
-            defaultValue={this.props.embed}
+            value={this.state.embed}
           />
           <div style={styles.msg}>
             copied to clipboard
           </div>
         </div>
-        <Socialfot embedAction={this.copyClipboard} showAction={this.showHdGif} embed={this.props.embed} show={this.props.show}/>
+        <Socialfot embedAction={this.copyClipboard} showAction={this.showHdGif} embed={this.state.embed} show={this.props.show}/>
       </div>
 
     );

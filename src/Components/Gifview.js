@@ -11,7 +11,6 @@ class Gifview extends Component {
 
   state = {
     result: false,
-    embed: true,
   }
 
   componentDidMount(){
@@ -21,20 +20,18 @@ class Gifview extends Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.gif){
-      console.log(nextProps.gif);
+      console.log(nextProps.gif.images.fixed_height.url);
       this.setState({
         result: true,
         gif : nextProps.gif,
         fondo: nextProps.gif.images.downsized_medium.url,
-        embed:nextProps.gif.images.fixed_height.url,
+        embed: nextProps.gif.images.fixed_height.url,
         user: nextProps.gif.user,
       })
     }
   }
 
-  componentDidUpdate(){
-    console.log(this.state.fondo);
-  }
+
   getRecomended=()=>{
 
   }
