@@ -23,17 +23,18 @@ class Gifbox extends Component {
     fondo : this.props.fondoGif,
     copyStatus: false,
     msgDisplay: 'none',
-    username: 'Giphy',
-    avatar: 'https://media1.giphy.com/avatars/studiosoriginals/j3JBzK5twdv8.jpg',
-    profileUrl : 'https://giphy.com/'
+    username: '',
+    avatar: '',
+    profileUrl : ''
   }
 
   componentWillMount(){
-    this.checkForUserInfo(this.props.user)
+    if(this.props.instant){
+      this.checkForUserInfo(this.props.user)
+    }
   }
 
   componentWillReceiveProps(nextProps){
-    console.log(nextProps.user);
     this.setState({
       fondo: nextProps.fondoGif,
       embed: nextProps.embed
@@ -58,11 +59,12 @@ class Gifbox extends Component {
             username: userInfo.username,
           })
         }
-      console.log('posible');
-      console.log(userInfo.display_name);
-      console.log(userInfo.avatar_url);
     }else{
-      console.log('imposible');
+      this.setState({
+        username: 'Giphy',
+        avatar: 'https://media1.giphy.com/avatars/studiosoriginals/j3JBzK5twdv8.jpg',
+        profileUrl : 'https://giphy.com/'
+      })
     }
   }
 
@@ -112,7 +114,7 @@ class Gifbox extends Component {
       gif:{
         display: 'flex',
         position: 'relative',
-        backgroundColor: '#fafafa',
+        backgroundColor: '#efefef',
         backgroundImage: `url(${this.state.fondo})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',

@@ -5,6 +5,8 @@ import Radium from 'radium'
 
 class Profileinfo extends Component {
 
+
+
   render() {
 
 
@@ -12,7 +14,18 @@ class Profileinfo extends Component {
       avatar:{
         height: '20px',
         width: '20px',
-        borderRadius: '100%'
+        borderRadius: '100%',
+        backgroundColor: '#efefef',
+        backgroundPosition: 'center',
+        backgroundSize: 'contain'
+      },
+      avatarActive:{
+        height: '20px',
+        width: '20px',
+        borderRadius: '100%',
+        backgroundImage: `url(${this.props.avatar})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'contain'
       },
       infoHolder:{
         height: '63px',
@@ -23,15 +36,26 @@ class Profileinfo extends Component {
         alignItems:'center',
         backgroundColor: '#fff',
         info:{
+          width: 'auto',
           display: 'flex',
           alignItems:'center',
           justifyContent: 'center',
           cursor : 'pointer',
           username:{
+            backgroundColor: '#efefef',
             color: '#171717',
             fontWeight:'300',
             fontSize: '1em',
             marginLeft: '0.4em',
+            width: '300px',
+            height: '20px'
+          },
+          usernameActive:{
+            color: '#171717',
+            fontWeight:'300',
+            fontSize: '1em',
+            marginLeft: '0.4em',
+            height: '20px'
           }
         },
 
@@ -41,8 +65,18 @@ class Profileinfo extends Component {
     return (
       <div style = {styles.infoHolder}>
         <a style ={styles.infoHolder.info} href={this.props.href} target='_blank'>
-          <img src={this.props.avatar} style ={styles.avatar}/>
-          <h2 style={styles.infoHolder.info.username}>{this.props.username}</h2>
+          {this.props.avatar.length > 0 &&
+            <div style ={styles.avatarActive}></div>
+          }
+          {this.props.avatar.length === 0 &&
+            <div style ={styles.avatar}></div>
+          }
+          {this.props.username.length > 0 &&
+            <div style={styles.infoHolder.info.usernameActive}>{this.props.username}</div>
+          }
+          {this.props.username.length === 0 &&
+            <div style={styles.infoHolder.info.username}></div>
+          }
         </a>
       </div>
     );

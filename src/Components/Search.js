@@ -54,6 +54,7 @@ class Search extends Component {
             user={gif.user}
             width="33.33%"
             height= '40vh'
+            instant
           />
         )
       )
