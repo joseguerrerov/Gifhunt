@@ -29,25 +29,38 @@ class Gifbox extends Component {
   }
 
   componentWillMount(){
-    if(typeof this.props.user !== 'undefined'){
-      if(typeof this.props.user.display_name !== 'undefined' &&
-         this.props.user.display_name !== '' &&
+    this.checkForUserInfo(this.props.user)
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log(nextProps.user);
+    this.setState({
+      fondo: nextProps.fondoGif,
+      embed: nextProps.embed
+    })
+    this.checkForUserInfo(nextProps.user)
+  }
+
+  checkForUserInfo = (userInfo) =>{
+    if(typeof userInfo !== 'undefined'){
+      if(typeof userInfo.display_name !== 'undefined' &&
+         userInfo.display_name !== '' &&
          this.props.display_name !== null){
            this.setState({
-             avatar: this.props.user.avatar_url,
-             profileUrl: this.props.user.profile_url,
-             username: this.props.user.display_name,
+             avatar: userInfo.avatar_url,
+             profileUrl: userInfo.profile_url,
+             username: userInfo.display_name,
            })
         }else{
           this.setState({
-            avatar: this.props.user.avatar_url,
-            profileUrl: this.props.user.profile_url,
-            username: this.props.user.username,
+            avatar: userInfo.avatar_url,
+            profileUrl: userInfo.profile_url,
+            username: userInfo.username,
           })
         }
       console.log('posible');
-      console.log(this.props.user.display_name);
-      console.log(this.props.user.avatar_url);
+      console.log(userInfo.display_name);
+      console.log(userInfo.avatar_url);
     }else{
       console.log('imposible');
     }

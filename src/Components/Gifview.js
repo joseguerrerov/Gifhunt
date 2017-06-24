@@ -10,7 +10,8 @@ import Gifbox from './Gifbox'
 class Gifview extends Component {
 
   state = {
-    result: false
+    result: false,
+    embed: true,
   }
 
   componentDidMount(){
@@ -20,31 +21,22 @@ class Gifview extends Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.gif){
-      console.log('run');
+      console.log(nextProps.gif);
       this.setState({
+        result: true,
         gif : nextProps.gif,
-        result: true
+        fondo: nextProps.gif.images.downsized_medium.url,
+        embed:nextProps.gif.images.fixed_height.url,
+        user: nextProps.gif.user,
       })
     }
   }
 
+  componentDidUpdate(){
+    console.log(this.state.fondo);
+  }
+  getRecomended=()=>{
 
-
-  getGifs = () =>{
-    if(this.state.result){
-      console.log(this.state.gif);
-      return(
-        <Gifbox
-          fondoGif={this.state.gif.images.downsized_large.url}
-          embed={this.state.gif.images.fixed_height.url}
-          user={this.state.gif.user}
-          height="70vh"
-          width="60%"/>
-      )
-    }else if (!this.state.result){
-      console.log('hola');
-
-    }
   }
 
   render() {
@@ -65,13 +57,21 @@ class Gifview extends Component {
 
     return (
       <div style = {styles.searchResults}>
-        {this.getGifs()}
-      </div>
-    );
+        <Gifbox
+          fondoGif={this.state.fondo}
+          embed={this.state.embed}
+          user={this.state.user}
+          height="70vh"
+          width="60%"/>
+          <div style= {styles.recomended}>
+            {this.getRecomended()}
+          </div>
+        </div>
+      );
+    }
+
   }
 
-}
-
-Gifview = withRouter(Gifview)
-Gifview = Radium(Gifview)
-export default Gifview;
+  Gifview = withRouter(Gifview)
+  Gifview = Radium(Gifview)
+  export default Gifview;

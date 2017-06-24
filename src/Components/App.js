@@ -73,7 +73,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component = {Home}/>
               <Route exact path="/search" render={() => ( <Redirect to="/search/trending"/>)}/>
-              <Route exact path="/search/:name" render = {()=><Search gifs={this.state.gifs} onLoad = {this.performSearch}/>} />
+              <Route exact path="/search/:name" render = {()=><Search gifs={this.state.gifs} onLoad = {this.performSearch}/>} viewGif={this.getGifById}/>
               <Route exact path="/gif/:id" render ={ () => <Gifview gif={this.state.gifById} onLoad={this.getGifById}/>}/>
               <Route component = {Lost} />
             </Switch>
