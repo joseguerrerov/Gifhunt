@@ -14,6 +14,7 @@ class Gifview extends Component {
   }
 
   componentDidMount(){
+     window.scrollTo(0, 0)
     this.props.onLoad(this.props.match.params.id)
     console.log(this.props.gif);
   }

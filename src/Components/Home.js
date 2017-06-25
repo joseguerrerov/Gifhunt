@@ -18,7 +18,7 @@ class Home extends Component {
 
   //Get 8 trending gifs
   componentWillMount(){
-    axios.get('https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=8')
+    axios.get('https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=1')
     .then(response => {
       this.setState({
         gifs: response.data.data,
@@ -36,7 +36,7 @@ class Home extends Component {
     let gifs
     if(results.length > 0 ){
       gifs = results.map(gif =>
-        <Showgif fondoGif={gif.images.fixed_height.url} fondo={gif.images.original_still.url} key={gif.id}/>
+        <Showgif fondoGif={gif.images.downsized.url} fondo={gif.images.original_still.url} key={gif.id}/>
       )
     }
 

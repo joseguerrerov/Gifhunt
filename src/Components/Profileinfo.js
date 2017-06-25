@@ -36,7 +36,7 @@ class Profileinfo extends Component {
           cursor : 'pointer',
           username:{
             backgroundColor: '#efefef',
-            color: '#171717',
+            color: '#3d3d3d',
             fontWeight:'300',
             fontSize: '1em',
             marginLeft: '0.4em',
@@ -46,7 +46,7 @@ class Profileinfo extends Component {
           usernameActive:{
             display: 'flex',
             alignItems: 'center',
-            color: '#171717',
+            color: '#3d3d3d',
             fontWeight:'300',
             fontSize: '1em',
             marginLeft: '0.4em',

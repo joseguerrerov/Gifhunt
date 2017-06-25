@@ -19,7 +19,7 @@ class Socialfot extends Component {
         backgroundColor: '#fff',
       },
       link: {
-        color: '#171717',
+        color: '#3d3d3d',
         cursor: 'pointer',
         fontSize: '20px'
       },

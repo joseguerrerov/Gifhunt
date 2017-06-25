@@ -16,6 +16,7 @@ class Search extends Component {
   }
 
   componentDidMount(){
+    window.scrollTo(0, 0)
     this.props.onLoad(this.props.match.params.name)
   }
 

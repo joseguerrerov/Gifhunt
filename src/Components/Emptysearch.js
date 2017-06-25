@@ -16,7 +16,7 @@ class Emptysearch extends Component{
         alignItems: 'center',
         width: '100%',
         justifyContent: 'center',
-        color: '#171717',
+        color: '#3d3d3d',
         alignSelf: 'flex-start',
         marginTop: '3em'
       },
@@ -25,7 +25,7 @@ class Emptysearch extends Component{
         textAlign: 'center'
       },
       trending:{
-        color: '#171717',
+        color: '#3d3d3d',
         display: 'flex',
         border: ' 2px solid red',
         padding: '1em',

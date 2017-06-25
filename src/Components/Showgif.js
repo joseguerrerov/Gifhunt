@@ -6,18 +6,15 @@ import Radium from 'radium'
 
 class Showgif extends Component {
 
-  randomHeight = () =>{
-    return Math.random() * (40 - 20) + 20;
-  }
 
   render() {
 
     const styles = {
       background: {
         boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 0px 1000px inset',
-        flex: ` 1 ${this.randomHeight()}% `,
+        flex: '1',
         display: 'flex',
-        height: '33.33%',
+        height: '100vh',
         alignItems: 'center',
         justifyContent: 'space-between',
         backgroundImage: `url(${this.props.fondoGif})`,

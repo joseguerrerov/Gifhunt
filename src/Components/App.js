@@ -39,6 +39,7 @@ class App extends Component {
     }
     axios.get(apiEndPoint)
     .then(response => {
+      console.log(response);
       this.setState({
         gifs: response.data.data,
         title : query,

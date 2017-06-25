@@ -1,7 +1,7 @@
 //Dependencies
 import React, { Component } from 'react'
 import Radium from 'radium'
-import {withRouter} from 'react-router-dom'
+import {withRouter, link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 //Assets
@@ -51,16 +51,42 @@ class Searchbar extends Component {
           height: '100%',
         },
         active:{
+          padding: '0 1em',
           background: '#fff',
+          justifyContent: 'space-between',
+          flexDirection: 'row',
           position: 'inherit',
           height: '76px',
-          marginBottom: '0.5em'
-
+          marginBottom: '0.5em',
+          '@media (min-width: 600px)': {
+            padding: '0 2em',
+          },
         },
         title:{
-          color: 'yellow',
-          fontSize: '3em',
-          marginBottom: '0',
+          color: '#fafafa',
+          fontSize: '4em',
+          margin: '0',
+          '@media (min-width: 600px)': {
+            fontSize: '6em'
+          },
+        },
+        titleActive:{
+          color: '#3d3d3d',
+          fontSize: '2em',
+          margin: '0',
+          '@media (max-width: 600px)': {
+            display: 'none',
+          },
+          res:{
+            fontSize: '1em',
+            padding: '0.5em',
+            backgroundColor: '#3d3d3d',
+            borderRadius: '5px',
+            color: '#fafafa',
+            '@media (min-width: 600px)': {
+              display: 'none'
+            },
+          },
         },
       },
       searchBar : {
@@ -71,7 +97,9 @@ class Searchbar extends Component {
         borderRadius: '10px',
         padding: '0.5em',
         marginBottom: '0.5em',
-
+        '@media (min-width: 600px)': {
+          borderRadius: '10px',
+        },
       },
       input:{
         width: '90%',
@@ -89,7 +117,23 @@ class Searchbar extends Component {
         border: 'none',
         outline: 'none',
         backgroundColor: '#fff',
-      }
+      },
+      powered:{
+        width: '100px',
+      },
+      poweredLink:{
+        alignSelf: 'flex-end'
+      },
+       brand:{
+        display: 'flex',
+        flexDirection: 'column',
+        marginBottom: '1em'
+      },
+      brandActive:{
+       display: 'flex',
+       flexDirection: 'column',
+
+     }
     }
 
     return (
@@ -101,11 +145,22 @@ class Searchbar extends Component {
           )}
            onSubmit={this.searchGif}
         >
-          <div>
-            {/*}
-            <h1 style={styles.searchBarContainer.title}>Show me those gifs !</h1>
-            <img src={logo}/>{*/}
-          </div>
+          {this.props.match.isExact
+            ?(
+              <div style={styles.brand}>
+                <h1 style={styles.searchBarContainer.title}>Gifhunt</h1>
+                <a href="https://giphy.com/" style={styles.poweredLink} target="_blank">
+                  <img src={logo} style={styles.powered}/>
+                </a>
+              </div>
+            ):(
+              <div style={styles.brandActive}>
+                <h1 style={styles.searchBarContainer.titleActive}>Gifhunt</h1>
+                <h1 style={styles.searchBarContainer.titleActive.res}>Gh</h1>
+              </div>
+            )
+          }
+
           <div style={styles.searchBar} className='search-bar'>
             <input type="search"
               onChange={this.onSearchChange}
@@ -122,6 +177,6 @@ class Searchbar extends Component {
 
   }
 
-  Searchbar = withRouter(Searchbar)
   Searchbar = Radium(Searchbar)
+  Searchbar = withRouter(Searchbar)
   export default Searchbar;

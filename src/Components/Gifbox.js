@@ -149,6 +149,9 @@ class Gifbox extends Component {
         zIndex: '-100000',
         outline: 'none',
         border: 'none',
+        color: 'rgba(255,255,255,0)',
+        backgroundColor : 'rgba(255,255,255,0)',
+        overflow: 'hidden'
       },
 
     }
