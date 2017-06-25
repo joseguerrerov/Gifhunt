@@ -51,14 +51,17 @@ class Searchbar extends Component {
           height: '100%',
         },
         active:{
-          padding: '0 1em',
           background: '#fff',
+          alignItems: '',
           justifyContent: 'space-between',
-          flexDirection: 'row',
+          flexDirection: 'column',
+          height: 'auto',
           position: 'inherit',
-          height: '76px',
           marginBottom: '0.5em',
           '@media (min-width: 600px)': {
+            alignItems: 'center',
+            height: '76px',
+            flexDirection: 'row',
             padding: '0 2em',
           },
         },
@@ -75,41 +78,39 @@ class Searchbar extends Component {
           fontSize: '2em',
           margin: '0',
           '@media (max-width: 600px)': {
-            display: 'none',
-          },
-          res:{
-            fontSize: '1em',
-            padding: '0.5em',
-            backgroundColor: '#3d3d3d',
-            borderRadius: '5px',
+            width: '100%',
             color: '#fafafa',
-            '@media (min-width: 600px)': {
-              display: 'none'
-            },
+            backgroundColor: '#3d3d3d',
+            padding: '0.5em 0 0.5em 0.5em',
+            fontSize: '1.7em',
           },
         },
       },
       searchBar : {
-
         display: 'flex',
         justifyContent: 'center',
         backgroundColor: '#fff',
         borderRadius: '10px',
         padding: '0.5em',
         marginBottom: '0.5em',
+        width: '100%',
         '@media (min-width: 600px)': {
           borderRadius: '10px',
+          width: '40%',
         },
       },
       input:{
         width: '90%',
         border: 'none',
         outline: 'none',
-        padding: '1.2em',
+        padding: '1.2em 0.5em',
         transition: '400ms',
         borderBottom: '4px solid #e4e4e4',
         ':focus':{
           borderBottom: '4px solid #c1c1c1'
+        },
+        '@media (min-width: 600px)': {
+          padding: '1.2em',
         },
       },
       button:{
@@ -124,59 +125,58 @@ class Searchbar extends Component {
       poweredLink:{
         alignSelf: 'flex-end'
       },
-       brand:{
+      brand:{
         display: 'flex',
         flexDirection: 'column',
         marginBottom: '1em'
       },
       brandActive:{
-       display: 'flex',
-       flexDirection: 'column',
-
-     }
+        display: 'flex',
+        flexDirection: 'column',
+        '@media (min-width: 600px)': {
+          borderRadius: '10px',
+        },
+      }
     }
 
     return (
       <form style={this.props.match.isExact
-          ? (
-            Object.assign({}, styles.searchBarContainer, styles.searchBarContainer.default)
-          ):(
-            Object.assign({}, styles.searchBarContainer, styles.searchBarContainer.active)
-          )}
-           onSubmit={this.searchGif}
+        ? (
+          Object.assign({}, styles.searchBarContainer, styles.searchBarContainer.default)
+        ):(
+          Object.assign({}, styles.searchBarContainer, styles.searchBarContainer.active)
+        )}
+        onSubmit={this.searchGif}
         >
-          {this.props.match.isExact
-            ?(
-              <div style={styles.brand}>
-                <h1 style={styles.searchBarContainer.title}>Gifhunt</h1>
-                <a href="https://giphy.com/" style={styles.poweredLink} target="_blank">
-                  <img src={logo} style={styles.powered}/>
-                </a>
-              </div>
-            ):(
-              <div style={styles.brandActive}>
-                <h1 style={styles.searchBarContainer.titleActive}>Gifhunt</h1>
-                <h1 style={styles.searchBarContainer.titleActive.res}>Gh</h1>
-              </div>
-            )
-          }
-
-          <div style={styles.searchBar} className='search-bar'>
-            <input type="search"
-              onChange={this.onSearchChange}
-              style={styles.input}
-              name="search"
-              ref = {(input) => this.query = input}
-              placeholder="Buscar"
-            />
-            <button type="submit" style={styles.button}><i className="material-icons">search</i></button>
+        {this.props.match.isExact?(
+          <div style={styles.brand}>
+            <h1 style={styles.searchBarContainer.title}>Gifhunt</h1>
+            <a href="https://giphy.com/" style={styles.poweredLink} target="_blank">
+              <img src={logo} style={styles.powered}/>
+            </a>
           </div>
-        </form>
-      );
-    }
+          ):(
+            <div style={styles.brandActive}>
+              <h1 style={styles.searchBarContainer.titleActive}>Gifhunt</h1>
+            </div>
+          )}
 
+        <div style={styles.searchBar}>
+          <input type="search"
+            onChange={this.onSearchChange}
+            style={styles.input}
+            name="search"
+            ref = {(input) => this.query = input}
+            placeholder="Buscar"
+          />
+          <button type="submit" style={styles.button}><i className="material-icons">search</i></button>
+        </div>
+      </form>
+    );
   }
 
-  Searchbar = Radium(Searchbar)
-  Searchbar = withRouter(Searchbar)
-  export default Searchbar;
+}
+
+Searchbar = Radium(Searchbar)
+Searchbar = withRouter(Searchbar)
+export default Searchbar;

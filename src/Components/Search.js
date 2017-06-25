@@ -46,8 +46,9 @@ class Search extends Component {
     const results = this.props.gifs
     if(this.state.result){
       return(
-        results.map(gif=>
+        results.map((gif, index)=>
           <Gifbox
+            offset={index}
             fondoGif={gif.images.fixed_width.url}
             embed={gif.images.fixed_height.url}
             slug={gif.slug}
