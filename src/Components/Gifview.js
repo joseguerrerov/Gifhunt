@@ -51,6 +51,7 @@ class Gifview extends Component {
         alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: '#fafafa',
+        marginTop: '1em',
       },
     }
 

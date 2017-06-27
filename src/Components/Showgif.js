@@ -21,7 +21,7 @@ class Showgif extends Component {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed',
+        
       },
     }
 
