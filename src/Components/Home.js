@@ -50,20 +50,13 @@ class Home extends Component {
         justifyContent: 'space-between',
         backgroundColor: '#000',
       },
-      info:{
-        height: '100vh',
-        backgroundColor: '#fff',
-        position:'absolute',
-        top: '100vh',
-        width: '100%',
-      },
-      t:{
+      holder:{
         height: '100vh',
       }
     }
 
     return (
-      <div style={styles.t}>
+      <div style={styles.holder}>
         <div style = {styles.homeComponent}>
           {gifs}
         </div>

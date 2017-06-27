@@ -99,6 +99,7 @@ class Gifbox extends Component {
 
   showHdGif = () =>{
     console.log(`estas clickeando en ${this.props.show}`)
+    //this.props.gifAction(1)
     this.props.history.push(`/gif/${this.props.show}`)
   }
 

@@ -1,7 +1,7 @@
 //Dependencies
 import React, { Component } from 'react'
 import Radium from 'radium'
-import {withRouter, link} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 //Assets
@@ -49,6 +49,7 @@ class Searchbar extends Component {
           background: 'none',
           position: 'absolute',
           height: '100%',
+          padding: '1em',
         },
         active:{
           background: '#fff',
@@ -90,7 +91,7 @@ class Searchbar extends Component {
         display: 'flex',
         justifyContent: 'center',
         backgroundColor: '#fff',
-        borderRadius: '10px',
+        borderRadius: '5px',
         padding: '0.5em',
         marginBottom: '0.5em',
         width: '100%',
@@ -157,7 +158,7 @@ class Searchbar extends Component {
           </div>
           ):(
             <div style={styles.brandActive}>
-              <h1 style={styles.searchBarContainer.titleActive}>Gifhunt</h1>
+              <Link to="/"><h1 style={styles.searchBarContainer.titleActive}>Gifhunt</h1></Link>
             </div>
           )}
 

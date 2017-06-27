@@ -64,6 +64,11 @@ class App extends Component {
     })
   }
 
+  //Function to set offest for paginitation
+  setOffset = (index) =>{
+    console.log(index);
+  }
+
 
 
 
@@ -76,7 +81,9 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component = {Home}/>
               <Route exact path="/search" render={() => ( <Redirect to="/search/trending"/>)}/>
-              <Route exact path="/search/:name" render = {()=><Search gifs={this.state.gifs} onLoad = {this.performSearch}/>} viewGif={this.getGifById}/>
+              <Route exact path="/search/:name" render = {()=>
+                <Search gifs={this.state.gifs} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset}/>}
+              />
               <Route exact path="/gif/:id" render ={ () => <Gifview gif={this.state.gifById} onLoad={this.getGifById}/>}/>
               <Route component = {Lost} />
             </Switch>

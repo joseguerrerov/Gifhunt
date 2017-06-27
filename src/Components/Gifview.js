@@ -66,6 +66,9 @@ class Gifview extends Component {
         />
           <div style= {styles.recomended}>
             {this.getRecomended()}
+            <div>
+
+            </div>
           </div>
         </div>
       );

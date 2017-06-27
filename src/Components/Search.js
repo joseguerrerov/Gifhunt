@@ -15,6 +15,9 @@ class Search extends Component {
     result: true
   }
 
+  gifAction =(index) => {
+    this.props.gifAction(index)
+  }
   componentDidMount(){
     window.scrollTo(0, 0)
     this.props.onLoad(this.props.match.params.name)
@@ -39,15 +42,13 @@ class Search extends Component {
     }
   }
 
-
-
-
   getGifs = () =>{
     const results = this.props.gifs
     if(this.state.result){
       return(
         results.map((gif, index)=>
           <Gifbox
+            action={this.gifAction}
             offset={index}
             fondoGif={gif.images.fixed_width.url}
             embed={gif.images.fixed_height.url}

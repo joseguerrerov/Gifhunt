@@ -11,14 +11,12 @@ class FeatFooter extends Component{
 
     const styles = {
       holder:{
-        position: 'absolute',
         display: 'flex',
         alignItems: 'center',
-        width: '100%',
         justifyContent: 'space-between',
-        bottom: '2em',
-        right: '0',
-        color: '#E1E8E1'
+        width: '100%',
+        padding: '2em 0',
+        color: '#3d3d3d'
       },
       text:{
         fontWeight: '300',
@@ -52,8 +50,8 @@ class FeatFooter extends Component{
       <div style={styles.holder}>
         <h3 style={styles.text}>© {year} José Guerrero</h3>
         <div style={styles.icons}>
-          <SocialIcon url={urls[0]} color="#E1E8E1" style={styles.icons.icon} />
-          <SocialIcon url={urls[1]} color="#E1E8E1" style={styles.icons.icon} />
+          <SocialIcon url={urls[0]} color="#3d3d3d" style={styles.icons.icon} />
+          <SocialIcon url={urls[1]} color="#3d3d3d" style={styles.icons.icon} />
         </div>
       </div>
     )
