@@ -39,7 +39,6 @@ class App extends Component {
     }
     axios.get(apiEndPoint)
     .then(response => {
-      console.log(response);
       this.setState({
         gifs: response.data.data,
         title : query,
@@ -66,11 +65,15 @@ class App extends Component {
 
   //Function to set offest for paginitation
   setOffset = (index) =>{
-    console.log(index);
+    this.setState({
+      gifByIdClick: this.state.gifs[index],
+      relatedGifsClick : [
+        this.state.gifs[index+1],
+        this.state.gifs[index+2],
+        this.state.gifs[index+3]
+      ]
+    })
   }
-
-
-
 
   render() {
     return (
@@ -84,7 +87,7 @@ class App extends Component {
               <Route exact path="/search/:name" render = {()=>
                 <Search gifs={this.state.gifs} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset}/>}
               />
-              <Route exact path="/gif/:id" render ={ () => <Gifview gif={this.state.gifById} onLoad={this.getGifById}/>}/>
+              <Route exact path="/gif/:id" render ={ () => <Gifview gif={this.state.gifById} onLoad={this.getGifById} gifByClick = {this.state.gifByIdClick} relatedGifsClick = {this.state.relatedGifsClick}/>}/>
               <Route component = {Lost} />
             </Switch>
           </div>

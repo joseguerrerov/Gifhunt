@@ -81,7 +81,6 @@ class Gifbox extends Component {
     e.preventDefault()
     //Copia
     this.textArea.select();
-    console.log(this.textArea.select());
     document.execCommand('copy');
     //Gestionar estado
     this.setState({
@@ -98,16 +97,13 @@ class Gifbox extends Component {
   }
 
   showHdGif = () =>{
-    console.log(`estas clickeando en ${this.props.show}`)
-    //this.props.gifAction(1)
+    this.props.action(this.props.offset)
     this.props.history.push(`/gif/${this.props.show}`)
   }
 
 
 
   render() {
-
-    console.log(this.props.slug);
 
     const styles = {
       holder: {
