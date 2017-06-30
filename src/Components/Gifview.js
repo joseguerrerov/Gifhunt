@@ -15,15 +15,7 @@ class Gifview extends Component {
 
   componentDidMount(){
     window.scrollTo(0, 0)
-    if(!this.props.gifByClick && !this.props.relatedGifsClick){
-      this.props.onLoad(this.props.match.params.id)
-    }else{
-      this.setState({
-        fondo: this.props.gifByClick.images.downsized_large.url,
-        embed: this.props.gifByClick.images.fixed_height.url,
-        user: this.props.gifByClick.user,
-      })
-    }
+    this.props.onLoad(this.props.match.params.id)
     console.log(this.props.gif);
   }
 
@@ -74,7 +66,7 @@ render() {
       display: 'flex',
       flexWrap: 'wrap',
       alignItems: 'center',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       backgroundColor: '#fafafa',
       marginTop: '1em',
     },
@@ -91,7 +83,7 @@ render() {
         size="contain"
       />
       <div style= {styles.recomended}>
-        
+
         <div>
 
         </div>

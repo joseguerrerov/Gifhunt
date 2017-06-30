@@ -98,7 +98,7 @@ class Gifbox extends Component {
 
   showHdGif = () =>{
     this.props.action(this.props.offset)
-    this.props.history.push(`/gif/${this.props.show}`)
+    //this.props.history.push(`/gif/${this.props.show}`)
   }
 
 
@@ -154,7 +154,7 @@ class Gifbox extends Component {
     }
 
     return (
-      <div style = {styles.holder}>
+      <div style = {[styles.holder, this.props.style]} onClick={this.props.onClick}>
         <Profileinfo username={this.state.username} avatar={this.state.avatar} href={this.state.profileUrl}/>
         <div style={styles.gif}>
           <textarea
@@ -167,7 +167,7 @@ class Gifbox extends Component {
             copied to clipboard
           </div>
         </div>
-        <Socialfot embedAction={this.copyClipboard} showAction={this.showHdGif} embed={this.state.embed} show={this.props.show}/>
+        <Socialfot embedAction={this.copyClipboard} showAction={this.showHdGif} embed={this.state.embed} show={this.props.show} href={`/gif/${this.props.show}`}/>
       </div>
 
     );

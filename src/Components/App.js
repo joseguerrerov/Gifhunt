@@ -14,19 +14,21 @@ import axios from 'axios'
 import Home from './Home'
 import Search from './Search'
 import Gifview from './Gifview'
+import Gifmodal from './Gifmodal'
 import Searchbar from './Searchbar'
 import Lost from './Lost'
 
 
 //Assets
 
-class App extends Component {
+class Appview extends Component {
 
   state ={
     gifs: [],
     title: '',
     barStatus : 'default',
     gifById: {},
+    modal: false
   }
 
   //function to search
@@ -66,35 +68,67 @@ class App extends Component {
   //Function to set offest for paginitation
   setOffset = (index) =>{
     this.setState({
+      modal: true,
       gifByIdClick: this.state.gifs[index],
       relatedGifsClick : [
         this.state.gifs[index+1],
-        this.state.gifs[index+2],
-        this.state.gifs[index+3]
+        this.state.gifs[index+2]
+        //this.state.gifs[index+3]
       ]
     })
   }
 
+
+  previousLocation = this.props.location
+
+  componentWillUpdate(nextProps) {
+    const { location } = this.props
+    // set previousLocation if props.location is not modal
+    if (
+      nextProps.history.action !== 'POP' &&
+      (!location.state || !location.state.modal)
+    ) {
+      this.previousLocation = this.props.location
+    }
+  }
+
   render() {
+
+    const { location } = this.props
+    const isModal = !!(
+      location.state &&
+      location.state.modal &&
+      this.previousLocation !== location // not initial render
+    )
+
     return (
-      <StyleRoot>
-        <BrowserRouter>
-          <div>
-            <Route render = {()=> <Searchbar type={this.state.barStatus}/>}/>
-            <Switch>
-              <Route exact path="/" component = {Home}/>
-              <Route exact path="/search" render={() => ( <Redirect to="/search/trending"/>)}/>
-              <Route exact path="/search/:name" render = {()=>
-                <Search gifs={this.state.gifs} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset}/>}
-              />
-              <Route exact path="/gif/:id" render ={ () => <Gifview gif={this.state.gifById} onLoad={this.getGifById} gifByClick = {this.state.gifByIdClick} relatedGifsClick = {this.state.relatedGifsClick}/>}/>
-              <Route component = {Lost} />
-            </Switch>
-          </div>
-        </BrowserRouter>
-      </StyleRoot>
-    );
+
+      <div>
+        <Route render = {()=> <Searchbar type={this.state.barStatus}/>}/>
+        <Switch location={isModal ? this.previousLocation : location}>
+          <Route exact path="/" component = {Home}/>
+          <Route exact path="/search" render={() => ( <Redirect to="/search/trending"/>)}/>
+          <Route exact path="/search/:name" render = {()=>
+            <Search gifs={this.state.gifs} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset}/>}
+          />
+          <Route exact path="/gif/:id" render ={ () => <Gifview gif={this.state.gifById} onLoad={this.getGifById}/>}/>
+          <Route component = {Lost} />
+        </Switch>
+        {isModal ? <Route exact path="/gif/:id" render={() => <Gifmodal gifByClick={this.state.gifByIdClick}/>}/> : null}
+      </div>
+
+    )
   }
 }
+
+
+const  App = () => (
+  <StyleRoot>
+    <BrowserRouter>
+      <Route component = {Appview}/>
+    </BrowserRouter>
+  </StyleRoot>
+)
+
 
 export default App;
