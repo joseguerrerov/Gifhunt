@@ -16,6 +16,7 @@ class Gifmodal extends Component {
   }
 
   componentDidMount(){
+    document.getElementsByTagName('body')[0].style.overflow = 'hidden'
     this.setState({
       fondo: this.props.gifByClick.images.downsized_large.url,
       embed: this.props.gifByClick.images.fixed_height.url,
@@ -36,6 +37,10 @@ class Gifmodal extends Component {
         user: nextProps.gif.user,
       })
     }
+  }
+
+  componentWillUnmount(){
+    document.getElementsByTagName('body')[0].style.overflow = 'visible'
   }
 
   close = (e) =>{
