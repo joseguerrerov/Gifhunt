@@ -81,7 +81,6 @@ class Gifbox extends Component {
     e.preventDefault()
     //Copia
     this.textArea.select();
-    //console.log(this.textArea.select());
     document.execCommand('copy');
     //Gestionar estado
     this.setState({
@@ -98,16 +97,13 @@ class Gifbox extends Component {
   }
 
   showHdGif = () =>{
-    //console.log(`estas clickeando en ${this.props.show}`)
-    //this.props.gifAction(1)
-    this.props.history.push(`/gif/${this.props.show}`)
+    this.props.action(this.props.offset)
+    //this.props.history.push(`/gif/${this.props.show}`)
   }
 
 
 
   render() {
-
-    //console.log(this.props.slug);
 
     const styles = {
       holder: {
@@ -158,7 +154,7 @@ class Gifbox extends Component {
     }
 
     return (
-      <div style = {styles.holder}>
+      <div style = {[styles.holder, this.props.style]} onClick={this.props.onClick}>
         <Profileinfo username={this.state.username} avatar={this.state.avatar} href={this.state.profileUrl}/>
         <div style={styles.gif}>
           <textarea
@@ -171,7 +167,7 @@ class Gifbox extends Component {
             Copiado al portapapeles
           </div>
         </div>
-        <Socialfot embedAction={this.copyClipboard} showAction={this.showHdGif} embed={this.state.embed} show={this.props.show}/>
+        <Socialfot embedAction={this.copyClipboard} showAction={this.showHdGif} embed={this.state.embed} show={this.props.show} href={`/gif/${this.props.show}`}/>
       </div>
 
     );
