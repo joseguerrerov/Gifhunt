@@ -81,7 +81,7 @@ class Gifbox extends Component {
     e.preventDefault()
     //Copia
     this.textArea.select();
-    console.log(this.textArea.select());
+    //console.log(this.textArea.select());
     document.execCommand('copy');
     //Gestionar estado
     this.setState({
@@ -98,7 +98,7 @@ class Gifbox extends Component {
   }
 
   showHdGif = () =>{
-    console.log(`estas clickeando en ${this.props.show}`)
+    //console.log(`estas clickeando en ${this.props.show}`)
     //this.props.gifAction(1)
     this.props.history.push(`/gif/${this.props.show}`)
   }
@@ -107,7 +107,7 @@ class Gifbox extends Component {
 
   render() {
 
-    console.log(this.props.slug);
+    //console.log(this.props.slug);
 
     const styles = {
       holder: {
@@ -168,7 +168,7 @@ class Gifbox extends Component {
             value={this.state.embed}
           />
           <div style={styles.msg}>
-            copied to clipboard
+            Copiado al portapapeles
           </div>
         </div>
         <Socialfot embedAction={this.copyClipboard} showAction={this.showHdGif} embed={this.state.embed} show={this.props.show}/>
