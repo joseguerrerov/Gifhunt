@@ -68,16 +68,10 @@ class Appview extends Component {
   //Function to set offest for paginitation
   setOffset = (index) =>{
     this.setState({
-      modal: true,
+      modalPos: index,
       gifByIdClick: this.state.gifs[index],
-      relatedGifsClick : [
-        this.state.gifs[index+1],
-        this.state.gifs[index+2]
-        //this.state.gifs[index+3]
-      ]
     })
   }
-
 
   previousLocation = this.props.location
 
@@ -114,7 +108,7 @@ class Appview extends Component {
           <Route exact path="/gif/:id" render ={ () => <Gifview gif={this.state.gifById} onLoad={this.getGifById}/>}/>
           <Route component = {Lost} />
         </Switch>
-        {isModal ? <Route exact path="/gif/:id" render={() => <Gifmodal gifByClick={this.state.gifByIdClick}/>}/> : null}
+        {isModal ? <Route exact path="/gif/:id" render={() => <Gifmodal index={this.state.modalPos} gifByClick={this.state.gifByIdClick}/>}/> : null}
       </div>
 
     )
