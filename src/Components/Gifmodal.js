@@ -104,7 +104,10 @@ render() {
       zIndex: '3',
       width: '60%',
       display: 'flex',
-      alignItems: 'center'
+      alignItems: 'center',
+      '@media(min-width: 600px) and (max-width: 900px)':{
+        width: '80%'
+      }
     },
     navIcons:{
       color: '#fafafa',
@@ -138,6 +141,6 @@ render() {
 
 }
 
-Gifmodal = withRouter(Gifmodal)
 Gifmodal = Radium(Gifmodal)
+Gifmodal = withRouter(Gifmodal)
 export default Gifmodal;
