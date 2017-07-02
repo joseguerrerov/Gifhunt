@@ -19,21 +19,26 @@ class Gifmodal extends Component {
       fondo: this.props.gifByClick.images.downsized_large.url,
       embed: this.props.gifByClick.images.fixed_height.url,
       user: this.props.gifByClick.user,
+      //url: this.props.gifByClick.id,
     })
-
-    console.log(this.props.gif);
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.gif){
-      console.log(nextProps.gif.images.fixed_height.url);
+    if(nextProps.gifByClick){
       this.setState({
-        result: true,
-        gif : nextProps.gif,
-        fondo: nextProps.gif.images.downsized_large.url,
-        embed: nextProps.gif.images.fixed_height.url,
-        user: nextProps.gif.user,
+        fondo: nextProps.gifByClick.images.downsized_large.url,
+        embed: nextProps.gifByClick.images.fixed_height.url,
+        user: nextProps.gifByClick.user,
+        url: nextProps.gifByClick.id,
       })
+    }
+    if(nextProps.gifByClick.id !== this.props.gifByClick.id){
+      let path = `/gif/${nextProps.gifByClick.id}`
+      const location = {
+        pathname: path,
+        state: {modal: true}
+      }
+      this.props.history.replace(location)
     }
   }
 
@@ -66,7 +71,7 @@ class Gifmodal extends Component {
   }
 
   showMoreGifs = (delta) =>{
-    console.log(delta)
+    this.props.nav(this.props.index + (delta))
   }
 
 render() {

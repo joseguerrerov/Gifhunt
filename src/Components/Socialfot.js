@@ -39,7 +39,7 @@ class Socialfot extends Component {
             <i className="material-icons" style={[styles.link, styles.embed]} onClick={this.props.embedAction}>link</i>
           }
           {this.props.show &&
-            <Link   to={{pathname: this.props.href,state: { modal: true }}}>
+            <Link to={{pathname: this.props.href, state: { modal: true }}}>
             <i className="material-icons" style={styles.link} onClick={this.props.showAction}>visibility</i>
           </Link>
           }

@@ -16,12 +16,12 @@ class Gifview extends Component {
   componentDidMount(){
     window.scrollTo(0, 0)
     this.props.onLoad(this.props.match.params.id)
-    console.log(this.props.gif);
+    //console.log(this.props.gif);
   }
 
   componentWillReceiveProps(nextProps){
     if(nextProps.gif){
-      console.log(nextProps.gif.images.fixed_height.url);
+      //console.log(nextProps.gif.images.fixed_height.url);
       this.setState({
         result: true,
         gif : nextProps.gif,

@@ -28,7 +28,6 @@ class Appview extends Component {
     title: '',
     barStatus : 'default',
     gifById: {},
-    modal: false
   }
 
   //function to search
@@ -78,10 +77,7 @@ class Appview extends Component {
   componentWillUpdate(nextProps) {
     const { location } = this.props
     // set previousLocation if props.location is not modal
-    if (
-      nextProps.history.action !== 'POP' &&
-      (!location.state || !location.state.modal)
-    ) {
+    if (nextProps.history.action !== 'POP' && (!location.state || !location.state.modal)){
       this.previousLocation = this.props.location
     }
   }
@@ -94,6 +90,8 @@ class Appview extends Component {
       location.state.modal &&
       this.previousLocation !== location // not initial render
     )
+
+
 
     return (
 
@@ -108,21 +106,22 @@ class Appview extends Component {
           <Route exact path="/gif/:id" render ={ () => <Gifview gif={this.state.gifById} onLoad={this.getGifById}/>}/>
           <Route component = {Lost} />
         </Switch>
-        {isModal ? <Route exact path="/gif/:id" render={() => <Gifmodal index={this.state.modalPos} gifByClick={this.state.gifByIdClick}/>}/> : null}
-      </div>
+        {isModal ?
+          <Route exact path="/gif/:id" render={() => <Gifmodal index={this.state.modalPos} nav={this.setOffset} gifByClick={this.state.gifByIdClick}/>}/> : null}
+        </div>
 
-    )
+      )
+    }
   }
-}
 
 
-const  App = () => (
-  <StyleRoot>
-    <BrowserRouter>
-      <Route component = {Appview}/>
-    </BrowserRouter>
-  </StyleRoot>
-)
+  const  App = () => (
+    <StyleRoot>
+      <BrowserRouter>
+        <Route component = {Appview}/>
+      </BrowserRouter>
+    </StyleRoot>
+  )
 
 
-export default App;
+  export default App;
