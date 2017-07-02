@@ -164,7 +164,7 @@ class Gifbox extends Component {
             value={this.state.embed}
           />
           <div style={styles.msg}>
-            copied to clipboard
+            Copiado al portapapeles
           </div>
         </div>
         <Socialfot embedAction={this.copyClipboard} showAction={this.showHdGif} embed={this.state.embed} show={this.props.show} href={`/gif/${this.props.show}`}/>
