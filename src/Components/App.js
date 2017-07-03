@@ -83,6 +83,7 @@ class Appview extends Component {
   }
 
   render() {
+    console.log(window.innerWidth)
 
     const { location } = this.props
     const isModal = !!(
@@ -107,7 +108,9 @@ class Appview extends Component {
           <Route component = {Lost} />
         </Switch>
         {isModal ?
-          <Route exact path="/gif/:id" render={() => <Gifmodal index={this.state.modalPos} nav={this.setOffset} gifByClick={this.state.gifByIdClick}/>}/> : null}
+          <Route exact path="/gif/:id" render={() =>
+            <Gifmodal index={this.state.modalPos} nav={this.setOffset} gifByClick={this.state.gifByIdClick}/>}/>
+            : null}
         </div>
 
       )

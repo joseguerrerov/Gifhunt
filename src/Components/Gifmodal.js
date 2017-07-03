@@ -15,6 +15,7 @@ class Gifmodal extends Component {
 
   componentDidMount(){
     document.getElementsByTagName('body')[0].style.overflow = 'hidden'
+    this.modal.focus()
     this.setState({
       fondo: this.props.gifByClick.images.downsized_large.url,
       embed: this.props.gifByClick.images.fixed_height.url,
@@ -60,6 +61,10 @@ class Gifmodal extends Component {
     e.stopPropagation()
   }
 
+  showMoreGifs = (delta) =>{
+    this.props.nav(this.props.index + (delta))
+  }
+
   modalNavForward = (e) =>{
     this.preventClose(e)
     this.showMoreGifs(1)
@@ -70,9 +75,16 @@ class Gifmodal extends Component {
     this.showMoreGifs(-1)
   }
 
-  showMoreGifs = (delta) =>{
-    this.props.nav(this.props.index + (delta))
+  modalKey = (e) =>{
+    if(e.keyCode == '37' && this.props.index > 0){
+      console.log('pa tras')
+      this.showMoreGifs(-1)
+    }else if(e.keyCode == '39'){
+      console.log('pa lante')
+      this.showMoreGifs(1)
+    }
   }
+
 
 render() {
 
@@ -118,7 +130,7 @@ render() {
   }
 
   return (
-    <div style = {styles.modal} onClick={this.close}>
+    <div style = {styles.modal} onClick={this.close} onKeyDown={this.modalKey} tabIndex = "0" ref={ (modal) => {this.modal = modal}}>
       <i className="material-icons" style={styles.close} onClick={this.closeButton}>close</i>
       <div style={styles.gif}>
         {this.props.index > 0 &&
