@@ -48,6 +48,11 @@ class Gifmodal extends Component {
     this.props.history.goBack()
   }
 
+  closeButton = (e) =>{
+    e.stopPropagation()
+    this.props.history.goBack()
+  }
+
   preventClose = (e) =>{
     e.stopPropagation()
   }
@@ -108,7 +113,7 @@ render() {
 
   return (
     <div style = {styles.modal} onClick={this.close}>
-      <i className="material-icons" style={styles.close} onClick={this.close}>close</i>
+      <i className="material-icons" style={styles.close} onClick={this.closeButton}>close</i>
       <Gifbox
         style={styles.gif}
         fondoGif={this.state.fondo}
