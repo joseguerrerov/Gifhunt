@@ -59,6 +59,7 @@ class Searchbar extends Component {
           height: 'auto',
           position: 'inherit',
           marginBottom: '0.5em',
+          boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px',
           '@media (min-width: 600px)': {
             alignItems: 'center',
             height: '76px',

@@ -28,7 +28,6 @@ class Appview extends Component {
     title: '',
     barStatus : 'default',
     gifById: {},
-    modal: false
   }
 
   //function to search
@@ -68,31 +67,23 @@ class Appview extends Component {
   //Function to set offest for paginitation
   setOffset = (index) =>{
     this.setState({
-      modal: true,
+      modalPos: index,
       gifByIdClick: this.state.gifs[index],
-      relatedGifsClick : [
-        this.state.gifs[index+1],
-        this.state.gifs[index+2]
-        //this.state.gifs[index+3]
-      ]
     })
   }
-
 
   previousLocation = this.props.location
 
   componentWillUpdate(nextProps) {
     const { location } = this.props
     // set previousLocation if props.location is not modal
-    if (
-      nextProps.history.action !== 'POP' &&
-      (!location.state || !location.state.modal)
-    ) {
+    if (nextProps.history.action !== 'POP' && (!location.state || !location.state.modal)){
       this.previousLocation = this.props.location
     }
   }
 
   render() {
+    console.log(window.innerWidth)
 
     const { location } = this.props
     const isModal = !!(
@@ -100,6 +91,8 @@ class Appview extends Component {
       location.state.modal &&
       this.previousLocation !== location // not initial render
     )
+
+
 
     return (
 
@@ -114,21 +107,24 @@ class Appview extends Component {
           <Route exact path="/gif/:id" render ={ () => <Gifview gif={this.state.gifById} onLoad={this.getGifById}/>}/>
           <Route component = {Lost} />
         </Switch>
-        {isModal ? <Route exact path="/gif/:id" render={() => <Gifmodal gifByClick={this.state.gifByIdClick}/>}/> : null}
-      </div>
+        {isModal ?
+          <Route exact path="/gif/:id" render={() =>
+            <Gifmodal index={this.state.modalPos} nav={this.setOffset} gifByClick={this.state.gifByIdClick}/>}/>
+            : null}
+        </div>
 
-    )
+      )
+    }
   }
-}
 
 
-const  App = () => (
-  <StyleRoot>
-    <BrowserRouter>
-      <Route component = {Appview}/>
-    </BrowserRouter>
-  </StyleRoot>
-)
+  const  App = () => (
+    <StyleRoot>
+      <BrowserRouter>
+        <Route component = {Appview}/>
+      </BrowserRouter>
+    </StyleRoot>
+  )
 
 
-export default App;
+  export default App;
