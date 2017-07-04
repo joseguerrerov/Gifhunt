@@ -33,26 +33,26 @@ class Gifview extends Component {
   }
 
   /*getRecomended=()=>{
-    if(this.state.result){
-      return(
-        results.map((gif, index) =>
-        <Gifbox
-          action={this.gifAction}
-          offset={index}
-          fondoGif={gif.images.fixed_width.url}
-          embed={gif.images.fixed_height.url}
-          slug={gif.slug}
-          show={gif.id}
-          key={gif.id}
-          user={gif.user}
-          width="33.33%"
-          height= '40vh'
-          instant
-          size="cover"
-        />
-      )
-    )
-  }*/
+  if(this.state.result){
+  return(
+  results.map((gif, index) =>
+  <Gifbox
+  action={this.gifAction}
+  offset={index}
+  fondoGif={gif.images.fixed_width.url}
+  embed={gif.images.fixed_height.url}
+  slug={gif.slug}
+  show={gif.id}
+  key={gif.id}
+  user={gif.user}
+  width="33.33%"
+  height= '40vh'
+  instant
+  size="cover"
+/>
+)
+)
+}*/
 //}
 
 render() {

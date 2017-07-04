@@ -17,6 +17,7 @@ import Gifview from './Gifview'
 import Gifmodal from './Gifmodal'
 import Searchbar from './Searchbar'
 import Lost from './Lost'
+import Bottomnav from './Bottomnav'
 
 
 //Assets
@@ -85,6 +86,7 @@ class Appview extends Component {
   render() {
     console.log(window.innerWidth)
 
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
     const { location } = this.props
     const isModal = !!(
       location.state &&
@@ -97,7 +99,10 @@ class Appview extends Component {
     return (
 
       <div>
-        <Route render = {()=> <Searchbar type={this.state.barStatus}/>}/>
+        {isMobile
+          ? null
+          : <Route render = {()=> <Searchbar type={this.state.barStatus}/>}/>
+        }
         <Switch location={isModal ? this.previousLocation : location}>
           <Route exact path="/" component = {Home}/>
           <Route exact path="/search" render={() => ( <Redirect to="/search/trending"/>)}/>
@@ -107,24 +112,31 @@ class Appview extends Component {
           <Route exact path="/gif/:id" render ={ () => <Gifview gif={this.state.gifById} onLoad={this.getGifById}/>}/>
           <Route component = {Lost} />
         </Switch>
-        {isModal ?
-          <Route exact path="/gif/:id" render={() =>
-            <Gifmodal index={this.state.modalPos} nav={this.setOffset} gifByClick={this.state.gifByIdClick}/>}/>
-            : null}
-        </div>
+        {isModal
+          ?<Route exact path="/gif/:id" render={() =>
+            <Gifmodal index={this.state.modalPos} nav={this.setOffset} gifByClick={this.state.gifByIdClick}/>}
+          />
+          : null
+        }
+        {isMobile
+          ? <Route component={Bottomnav}/>
+          : null
+        }
 
-      )
-    }
+      </div>
+
+    )
   }
+}
 
 
-  const  App = () => (
-    <StyleRoot>
-      <BrowserRouter>
-        <Route component = {Appview}/>
-      </BrowserRouter>
-    </StyleRoot>
-  )
+const  App = () => (
+  <StyleRoot>
+    <BrowserRouter>
+      <Route component = {Appview}/>
+    </BrowserRouter>
+  </StyleRoot>
+)
 
 
-  export default App;
+export default App;

@@ -150,18 +150,18 @@ class Searchbar extends Component {
         )}
         onSubmit={this.searchGif}
         >
-        {this.props.match.isExact?(
-          <div style={styles.brand}>
-            <h1 style={styles.searchBarContainer.title}>Gifhunt</h1>
-            <a href="https://giphy.com/" style={styles.poweredLink} target="_blank">
+          {this.props.match.isExact?(
+            <div style={styles.brand}>
+              <h1 style={styles.searchBarContainer.title}>Gifhunt</h1>
+              <a href="https://giphy.com/" style={styles.poweredLink} target="_blank">
               <img src={logo} style={styles.powered}/>
             </a>
           </div>
-          ):(
-            <div style={styles.brandActive}>
-              <Link to="/"><h1 style={styles.searchBarContainer.titleActive}>Gifhunt</h1></Link>
-            </div>
-          )}
+        ):(
+          <div style={styles.brandActive}>
+            <Link to="/"><h1 style={styles.searchBarContainer.titleActive}>Gifhunt</h1></Link>
+          </div>
+        )}
 
         <div style={styles.searchBar}>
           <input type="search"

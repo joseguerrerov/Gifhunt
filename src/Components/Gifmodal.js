@@ -88,70 +88,70 @@ class Gifmodal extends Component {
   }
 
 
-render() {
+  render() {
 
 
-  const styles = {
-    modal: {
-      top: window.scrollY,
-      position: 'absolute',
-      zIndex: '2',
-      height: '100vh',
-      width: '100%',
-      padding: '0 0.5em',
-      display: 'flex',
-      flexWrap: 'wrap',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: 'rgba(0,0,0,.75)',
-    },
-    close:{
-      fontWeight: '600',
-      position: 'absolute',
-      top: '2em',
-      right: '2em',
-      color: '#fafafa',
-      cursor: 'pointer'
-    },
-    gif:{
-      position: 'absolute',
-      zIndex: '3',
-      width: '60%',
-      display: 'flex',
-      alignItems: 'center',
-      '@media(min-width: 600px) and (max-width: 900px)':{
-        width: '80%'
-      }
-    },
-    navIcons:{
-      color: '#fafafa',
-      fontSize: '3em',
-      cursor: 'pointer',
-      userSelect: 'none'
-    }
-  }
-
-  return (
-    <div style = {styles.modal} onClick={this.close} onKeyDown={this.modalKey} tabIndex = "0" ref={(modal) => {this.modal = modal}}>
-      <i className="material-icons" style={styles.close} onClick={this.closeButton}>close</i>
-      <div style={styles.gif}>
-        {this.props.index > 0 &&
-          <i className="material-icons" style={styles.navIcons} onClick={this.modalNavBackward}>chevron_left</i>
+    const styles = {
+      modal: {
+        top: window.scrollY,
+        position: 'absolute',
+        zIndex: '2',
+        height: '100vh',
+        width: '100%',
+        padding: '0 0.5em',
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(0,0,0,.75)',
+      },
+      close:{
+        fontWeight: '600',
+        position: 'absolute',
+        top: '2em',
+        right: '2em',
+        color: '#fafafa',
+        cursor: 'pointer'
+      },
+      gif:{
+        position: 'absolute',
+        zIndex: '3',
+        width: '60%',
+        display: 'flex',
+        alignItems: 'center',
+        '@media(min-width: 600px) and (max-width: 900px)':{
+          width: '80%'
         }
-        <Gifbox
-          fondoGif={this.state.fondo}
-          embed={this.state.embed}
-          user={this.state.user}
-          height="70vh"
-          width="100%"
-          size="contain"
-          onClick={this.preventClose}
-        />
-        <i className="material-icons" style={styles.navIcons} onClick={this.modalNavForward}>chevron_right</i>
+      },
+      navIcons:{
+        color: '#fafafa',
+        fontSize: '3em',
+        cursor: 'pointer',
+        userSelect: 'none'
+      }
+    }
+
+    return (
+      <div style = {styles.modal} onClick={this.close} onKeyDown={this.modalKey} tabIndex = "0" ref={(modal) => {this.modal = modal}}>
+        <i className="material-icons" style={styles.close} onClick={this.closeButton}>close</i>
+        <div style={styles.gif}>
+          {this.props.index > 0 &&
+            <i className="material-icons" style={styles.navIcons} onClick={this.modalNavBackward}>chevron_left</i>
+          }
+          <Gifbox
+            fondoGif={this.state.fondo}
+            embed={this.state.embed}
+            user={this.state.user}
+            height="70vh"
+            width="100%"
+            size="contain"
+            onClick={this.preventClose}
+          />
+          <i className="material-icons" style={styles.navIcons} onClick={this.modalNavForward}>chevron_right</i>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
 }
 
