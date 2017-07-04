@@ -20,7 +20,6 @@ class Gifmodal extends Component {
       fondo: this.props.gifByClick.images.downsized_large.url,
       embed: this.props.gifByClick.images.fixed_height.url,
       user: this.props.gifByClick.user,
-      //url: this.props.gifByClick.id,
     })
   }
 
@@ -130,7 +129,7 @@ render() {
   }
 
   return (
-    <div style = {styles.modal} onClick={this.close} onKeyDown={this.modalKey} tabIndex = "0" ref={ (modal) => {this.modal = modal}}>
+    <div style = {styles.modal} onClick={this.close} onKeyDown={this.modalKey} tabIndex = "0" ref={(modal) => {this.modal = modal}}>
       <i className="material-icons" style={styles.close} onClick={this.closeButton}>close</i>
       <div style={styles.gif}>
         {this.props.index > 0 &&
