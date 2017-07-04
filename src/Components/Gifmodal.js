@@ -75,12 +75,15 @@ class Gifmodal extends Component {
   }
 
   modalKey = (e) =>{
+    console.log(e.keyCode)
     if((e.keyCode === 37 || e.keyCode === 65) && this.props.index > 0){
       console.log('pa tras')
       this.showMoreGifs(-1)
     }else if(e.keyCode === 39 || e.keyCode === 68){
       console.log('pa lante')
       this.showMoreGifs(1)
+    }else if(e.keyCode === 27){
+      this.props.history.goBack()
     }
   }
 
