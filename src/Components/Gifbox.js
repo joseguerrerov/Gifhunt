@@ -107,7 +107,7 @@ class Gifbox extends Component {
 
     const styles = {
       holder: {
-        width: `calc(100% - 1em)`,
+        width: '100%',
         margin: '1em 0.5em 0.5em 0.5em',
         display: 'flex',
         flexDirection: 'column',
@@ -127,9 +127,11 @@ class Gifbox extends Component {
         backgroundSize: this.state.size,
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        height: this.state.height,
-        width: '100%'
-
+        height: '50vh',
+        width: '100%',
+        '@media (min-width: 600px)': {
+          height: this.state.height,
+        },
       },
       msg:{
         display: this.state.msgDisplay,

@@ -13,6 +13,7 @@ import axios from 'axios'
 //Components
 import Home from './Home'
 import Search from './Search'
+import Mobiletop from './Mobiletop'
 import Gifview from './Gifview'
 import Gifmodal from './Gifmodal'
 import Searchbar from './Searchbar'
@@ -34,7 +35,7 @@ class Appview extends Component {
   }
 
   //function to search
-  performSearch = (query = 'cats', limit = 21) =>{
+  performSearch = (query = 'cats', limit = 12) =>{
     let apiEndPoint =`https://api.giphy.com/v1/gifs/trending?api_key=1dbc2f313ec44971b8ee0815b6951dca&limit=${limit}`
     if(query === 'trending'){
 
@@ -119,7 +120,7 @@ class Appview extends Component {
 
       <div>
         {isMobile
-          ? null
+          ? <Route component={Mobiletop}/>
           :<Route render = {()=> <Searchbar type={this.state.barStatus}/>}/>
         }
         <Switch location={isModal ? this.previousLocation : location}>
@@ -131,7 +132,7 @@ class Appview extends Component {
 
           <Route exact path="/search" render={() => ( <Redirect to="/search/trending"/>)}/>
           <Route exact path="/search/:name" render = {()=>
-            <Search gifs={this.state.gifs} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={this.isMobile}/>}
+            <Search gifs={this.state.gifs} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile}/>}
           />
           <Route exact path="/gif/:id" render ={ () => <Gifview gif={this.state.gifById} onLoad={this.getGifById}/>}/>
           <Route exact path="/random-gif" render={() => <Randomgif gif={this.state.randomGif}/>}/>

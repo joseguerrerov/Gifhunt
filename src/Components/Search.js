@@ -53,7 +53,7 @@ class Search extends Component {
             fondoGif={gif.images.fixed_width.url}
             embed={gif.images.fixed_height.url}
             slug={gif.slug}
-            show={gif.id}
+            show={this.props.isMobile ? null :gif.id}
             key={gif.id}
             user={gif.user}
             width="33.33%"
@@ -73,6 +73,9 @@ class Search extends Component {
 
   render() {
 
+    const setMarginTop = () =>(
+      this.props.isMobile ? '67px' : '2em'
+    )
 
     const styles = {
       searchResults: {
@@ -82,7 +85,7 @@ class Search extends Component {
         display: 'flex',
         flexWrap: 'wrap',
         alignItems: 'flex-start',
-        marginTop: '1em',
+        marginTop: setMarginTop()
       },
     }
 
@@ -94,7 +97,6 @@ class Search extends Component {
   }
 
 }
-
-Search = withRouter(Search)
 Search = Radium(Search)
+Search = withRouter(Search)
 export default Search;
