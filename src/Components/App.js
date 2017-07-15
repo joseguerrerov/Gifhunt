@@ -35,7 +35,7 @@ class Appview extends Component {
   }
 
   //function to search
-  performSearch = (query = 'cats', limit = 12) =>{
+  performSearch = (query = 'trending', limit = 12) =>{
     let apiEndPoint =`https://api.giphy.com/v1/gifs/trending?api_key=1dbc2f313ec44971b8ee0815b6951dca&limit=${limit}`
     if(query === 'trending'){
 
@@ -126,7 +126,7 @@ class Appview extends Component {
         <Switch location={isModal ? this.previousLocation : location}>
 
           {isMobile
-            ?<Route exact path="/" render={() => ( <Redirect to="/search/trending"/> )}/>
+            ?<Route exact path="/" render={() => ( <Search gifs={this.state.gifs} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile}/> )}/>
             :<Route exact path="/" component={Home}/>
           }
 

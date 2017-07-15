@@ -67,6 +67,7 @@ class Gifmodal extends Component {
   modalNavForward = (e) =>{
     this.preventClose(e)
     this.showMoreGifs(1)
+    console.log(this.props.index);
   }
 
   modalNavBackward = (e) =>{
@@ -76,11 +77,11 @@ class Gifmodal extends Component {
 
   modalKey = (e) =>{
     console.log(e.keyCode)
+    //Move backwards
     if((e.keyCode === 37 || e.keyCode === 65) && this.props.index > 0){
-      console.log('pa tras')
       this.showMoreGifs(-1)
+    //Move forward
     }else if(e.keyCode === 39 || e.keyCode === 68){
-      console.log('pa lante')
       this.showMoreGifs(1)
     }else if(e.keyCode === 27){
       this.props.history.goBack()
