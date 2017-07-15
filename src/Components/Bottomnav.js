@@ -1,13 +1,17 @@
 //Dependencies
 import React, { Component } from 'react'
 import Radium from 'radium'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 
 
 //Components
-import Gifbox from './Gifbox'
 
 class Bottomnav extends Component {
+
+  //Call random function
+  callRandom = () => {
+    this.props.randomCall();
+  }
 
 
   render() {
@@ -35,7 +39,9 @@ class Bottomnav extends Component {
         alignItems: 'center',
         justifyContent: 'flex-start',
         flexDirection: 'column',
-        padding: '6px 12px 10px 12px'
+        padding: '6px 12px 10px 12px',
+        textDecoration: 'none',
+        color: '#3d3d3d',
       },
       title:{
         fontSize: '12px'
@@ -44,18 +50,18 @@ class Bottomnav extends Component {
 
     return (
       <div style = {styles.bottomNav}>
-        <div style={styles.ref}>
+        <Link to="/" style={styles.ref}>
           <i className="material-icons" style={styles.icons}>whatshot</i>
           <div style={styles.title}>Trending</div>
-        </div>
-        <div style={styles.ref}>
+        </Link>
+        <Link to="/search" style={styles.ref}>
           <i className="material-icons" style={styles.icons}>search</i>
           <div style={styles.title}>Search</div>
-        </div>
-        <div style={styles.ref}>
+        </Link>
+        <Link to="/random-gif" style = {styles.ref} onClick={this.callRandom}>
           <i className="material-icons" style={styles.icons}>shuffle</i>
           <div style={styles.title}>Random</div>
-        </div>
+        </Link>
       </div>
     )
   }

@@ -16,6 +16,7 @@ import Search from './Search'
 import Gifview from './Gifview'
 import Gifmodal from './Gifmodal'
 import Searchbar from './Searchbar'
+import Randomgif from './Randomgif'
 import Lost from './Lost'
 import Bottomnav from './Bottomnav'
 
@@ -29,6 +30,7 @@ class Appview extends Component {
     title: '',
     barStatus : 'default',
     gifById: {},
+    randomGif:{},
   }
 
   //function to search
@@ -48,7 +50,7 @@ class Appview extends Component {
       })
     })
     .catch(error => {
-      console.log('Error fetching and parsing data');
+      console.log('Error fetching and parsing data, search');
     })
   }
 
@@ -61,7 +63,20 @@ class Appview extends Component {
       })
     })
     .catch(error => {
-      console.log('Error fetching and parsing data')
+      console.log('Error fetching and parsing data, byId')
+    })
+  }
+
+  //Get random gif
+  getRandomGif = () => {
+    axios.get('https://api.giphy.com/v1/gifs/random?api_key=1dbc2f313ec44971b8ee0815b6951dca')
+    .then(response =>{
+      this.setState({
+        randomGif : response.data.data,
+      })
+    })
+    .catch(error => {
+      console.log('Error fetching and parsing data, random')
     })
   }
 
@@ -71,6 +86,10 @@ class Appview extends Component {
       modalPos: index,
       gifByIdClick: this.state.gifs[index],
     })
+  }
+
+  componentDidMount(){
+    this.getRandomGif()
   }
 
   previousLocation = this.props.location
@@ -101,17 +120,25 @@ class Appview extends Component {
       <div>
         {isMobile
           ? null
-          : <Route render = {()=> <Searchbar type={this.state.barStatus}/>}/>
+          :<Route render = {()=> <Searchbar type={this.state.barStatus}/>}/>
         }
         <Switch location={isModal ? this.previousLocation : location}>
-          <Route exact path="/" component = {Home}/>
+
+          {isMobile
+            ?<Route exact path="/" render={() => ( <Redirect to="/search/trending"/> )}/>
+            :<Route exact path="/" component={Home}/>
+          }
+
           <Route exact path="/search" render={() => ( <Redirect to="/search/trending"/>)}/>
           <Route exact path="/search/:name" render = {()=>
-            <Search gifs={this.state.gifs} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset}/>}
+            <Search gifs={this.state.gifs} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={this.isMobile}/>}
           />
           <Route exact path="/gif/:id" render ={ () => <Gifview gif={this.state.gifById} onLoad={this.getGifById}/>}/>
+          <Route exact path="/random-gif" render={() => <Randomgif gif={this.state.randomGif}/>}/>
           <Route component = {Lost} />
         </Switch>
+
+
         {isModal
           ?<Route exact path="/gif/:id" render={() =>
             <Gifmodal index={this.state.modalPos} nav={this.setOffset} gifByClick={this.state.gifByIdClick}/>}
@@ -119,12 +146,11 @@ class Appview extends Component {
           : null
         }
         {isMobile
-          ? <Route component={Bottomnav}/>
+          ? <Route render={()=> <Bottomnav randomCall={this.getRandomGif}/>}/>
           : null
         }
 
       </div>
-
     )
   }
 }
