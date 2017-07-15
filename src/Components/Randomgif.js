@@ -16,6 +16,7 @@ class Randomgif extends Component {
   componentDidMount(){
     this.setState({
       fondo: this.props.gif.fixed_width_downsampled_url,
+      embed: this.props.gif.image_url
     })
   }
 
@@ -23,6 +24,7 @@ class Randomgif extends Component {
     if(nextProps.gif){
       this.setState({
         fondo: nextProps.gif.fixed_width_downsampled_url,
+        embed: nextProps.gif.image_url
       })
     }
 
@@ -30,10 +32,20 @@ class Randomgif extends Component {
 
 
   render() {
+
+    const setMarginTop = () => (
+      this.props.isMobile ? '67px' : '2em'
+    )
+
+    const setPadding = () => (
+      this.props.isMobile ? '0' : '0.5em'
+    )
+
     const styles ={
       holder:{
-        padding: '0 0.5em',
-        marginTop: '1em'
+        padding: setPadding(),
+        display: 'flex',
+        marginTop: setMarginTop(),
       }
     }
     return (
@@ -50,7 +62,6 @@ class Randomgif extends Component {
   }
 
 }
-
-Randomgif = withRouter(Randomgif)
 Randomgif = Radium(Randomgif)
+Randomgif = withRouter(Randomgif)
 export default Randomgif;

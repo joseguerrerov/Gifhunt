@@ -57,6 +57,9 @@ class Gifview extends Component {
 
 render() {
 
+  const setMarginTop = () => (
+    this.props.isMobile ? '67px' : '2em'
+  )
 
   const styles = {
     searchResults: {
@@ -68,7 +71,7 @@ render() {
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: '#fafafa',
-      marginTop: '1em',
+      marginTop: setMarginTop(),
     },
   }
 
@@ -82,12 +85,6 @@ render() {
         width="60%"
         size="contain"
       />
-      <div style= {styles.recomended}>
-
-        <div>
-
-        </div>
-      </div>
     </div>
   );
 }
