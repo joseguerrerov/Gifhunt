@@ -16,10 +16,11 @@ import Search from './Search'
 import Mobiletop from './Mobiletop'
 import Gifview from './Gifview'
 import Gifmodal from './Gifmodal'
-import Searchbar from './Searchbar'
+import Desktopnav from './Desktopnav'
 import Randomgif from './Randomgif'
 import Lost from './Lost'
 import Bottomnav from './Bottomnav'
+import Searchbar from './Searchbar'
 
 
 //Assets
@@ -36,9 +37,9 @@ class Appview extends Component {
 
   //function to search
   performSearch = (query = 'trending', limit = 12) =>{
-    let apiEndPoint =`https://api.giphy.com/v1/gifs/trending?api_key=1dbc2f313ec44971b8ee0815b6951dca&limit=${limit}`
+    let apiEndPoint
     if(query === 'trending'){
-
+      apiEndPoint =`https://api.giphy.com/v1/gifs/trending?api_key=1dbc2f313ec44971b8ee0815b6951dca&limit=${limit}`
     }else{
       apiEndPoint = `https://api.giphy.com/v1/gifs/search?q=${query}&limit=${limit}&lang=est&api_key=dc6zaTOxFJmzC`
     }
@@ -104,6 +105,9 @@ class Appview extends Component {
   }
 
   render() {
+
+    const locForNav = this.props.location.pathname === "/" || this.props.location.pathname === "/random-gif"
+    console.log(locForNav);
     console.log(window.innerWidth)
 
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
@@ -120,8 +124,8 @@ class Appview extends Component {
 
       <div>
         {isMobile
-          ? <Route component={Mobiletop}/>
-          : <Route render = {()=> <Searchbar type={this.state.barStatus}/>}/>
+          ? <Route component = {locForNav ? Mobiletop  : Searchbar }/>
+          : <Route render = {()=> <Desktopnav type={this.state.barStatus}/>}/>
         }
         <Switch location={isModal ? this.previousLocation : location}>
 
