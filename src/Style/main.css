@@ -22,6 +22,12 @@ textarea{
    resize: none;
 }
 
+.selected-bottom-nav i,
+.selected-bottom-nav div{
+  color: #000 !important;
+  font-weight: 400;
+}
+
 @media (min-width: 600px) {
   .search-bar{
     width: 40%;

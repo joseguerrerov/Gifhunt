@@ -121,7 +121,7 @@ class Appview extends Component {
       <div>
         {isMobile
           ? <Route component={Mobiletop}/>
-          :<Route render = {()=> <Searchbar type={this.state.barStatus}/>}/>
+          : <Route render = {()=> <Searchbar type={this.state.barStatus}/>}/>
         }
         <Switch location={isModal ? this.previousLocation : location}>
 

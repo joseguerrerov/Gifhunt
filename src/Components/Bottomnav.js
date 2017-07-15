@@ -1,7 +1,7 @@
 //Dependencies
 import React, { Component } from 'react'
 import Radium from 'radium'
-import {withRouter, Link} from 'react-router-dom'
+import {withRouter, NavLink} from 'react-router-dom'
 
 
 //Components
@@ -30,7 +30,7 @@ class Bottomnav extends Component {
         border: '0 solid #000'
       },
       icons:{
-        color: '#3d3d3d',
+        color: '#696969',
         marginBottom: '6px'
       },
       ref:{
@@ -41,7 +41,7 @@ class Bottomnav extends Component {
         flexDirection: 'column',
         padding: '6px 12px 10px 12px',
         textDecoration: 'none',
-        color: '#3d3d3d',
+        color: '#696969',
       },
       title:{
         fontSize: '12px'
@@ -50,24 +50,24 @@ class Bottomnav extends Component {
 
     return (
       <div style = {styles.bottomNav}>
-        <Link to="/" style={styles.ref}>
+        <NavLink exact to="/" activeClassName="selected-bottom-nav" style={styles.ref}>
           <i className="material-icons" style={styles.icons}>whatshot</i>
           <div style={styles.title}>Trending</div>
-        </Link>
-        <Link to="/search" style={styles.ref}>
+        </NavLink>
+        <NavLink exact to="/search/trending" activeClassName="selected-bottom-nav" style={styles.ref}>
           <i className="material-icons" style={styles.icons}>search</i>
           <div style={styles.title}>Search</div>
-        </Link>
-        <Link to="/random-gif" style = {styles.ref} onClick={this.callRandom}>
+        </NavLink>
+        <NavLink exact to="/random-gif" activeClassName="selected-bottom-nav" style = {styles.ref} onClick={this.callRandom}>
           <i className="material-icons" style={styles.icons}>shuffle</i>
           <div style={styles.title}>Random</div>
-        </Link>
+        </NavLink>
       </div>
     )
   }
 
 }
 
-Bottomnav = withRouter(Bottomnav)
 Bottomnav = Radium(Bottomnav)
+Bottomnav = withRouter(Bottomnav)
 export default Bottomnav;
