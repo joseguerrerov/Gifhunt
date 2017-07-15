@@ -19,6 +19,7 @@ class Mobiletop extends Component {
 
     const styles = {
       topHolder:{
+        padding: '1em',
         position: 'fixed',
         zIndex: '999999',
         top:'0',
@@ -29,12 +30,16 @@ class Mobiletop extends Component {
         alignItems: 'center',
         justifyContent: 'center',
         boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px'
+      },
+      title:{
+        margin: '0',
+        color: '#3d3d3d',
       }
     }
 
     return (
       <div style = {styles.topHolder}>
-        <h2>Gifhunt</h2>
+        <h2 style={styles.title}>Gifhunt</h2>
       </div>
     )
   }
