@@ -77,15 +77,20 @@ class Search extends Component {
       this.props.isMobile ? '67px' : '2em'
     )
 
+    const setPadding = () => (
+      this.props.isMobile ? '0' : '0.5em'
+    )
+
     const styles = {
       searchResults: {
         minHeight: 'calc(100vh - 76px)',
         maxWidth: '100%',
-        padding: '0 0.5em',
+        padding: setPadding(),
         display: 'flex',
         flexWrap: 'wrap',
         alignItems: 'flex-start',
-        marginTop: setMarginTop()
+        marginTop: setMarginTop(),
+        paddingBottom: '70px'
       },
     }
 

@@ -108,7 +108,7 @@ class Gifbox extends Component {
     const styles = {
       holder: {
         width: '100%',
-        margin: '1em 0.5em 0.5em 0.5em',
+        margin: '1em 0',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -116,6 +116,7 @@ class Gifbox extends Component {
         boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px',
         borderRadius: '2px',
         '@media (min-width: 600px)': {
+          margin: '1em 0.5em 0.5em 0.5em',
           width: `calc(${this.state.width} - 1em)`,
         },
       },
@@ -166,7 +167,7 @@ class Gifbox extends Component {
             value={this.state.embed}
           />
           <div style={styles.msg}>
-            Copiado al portapapeles
+            Copy to clipboard
           </div>
         </div>
         <Socialfot embedAction={this.copyClipboard} showAction={this.showHdGif} embed={this.state.embed} show={this.props.show} href={`/gif/${this.props.show}`}/>
