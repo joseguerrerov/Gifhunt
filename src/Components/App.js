@@ -33,6 +33,10 @@ class Appview extends Component {
     barStatus : 'default',
     gifById: {},
     randomGif:{},
+    routeOffset : {
+      home: '',
+      search: ''
+    }
   }
 
   //function to search
@@ -90,6 +94,15 @@ class Appview extends Component {
     })
   }
 
+  //Function to store offset of routes
+  saveRouteOffset = (route, offset) => {
+
+    if(typeof route !== 'undefined' && typeof offset !== 'undefined'){
+
+    }
+
+  }
+
   componentDidMount(){
     this.getRandomGif()
   }
@@ -107,9 +120,6 @@ class Appview extends Component {
   render() {
 
     const locForNav = this.props.location.pathname === "/" || this.props.location.pathname === "/random-gif"
-    console.log(locForNav);
-    console.log(window.innerWidth)
-
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
     const { location } = this.props
     const isModal = !!(
@@ -119,12 +129,11 @@ class Appview extends Component {
     )
 
 
-
     return (
 
       <div>
         {isMobile
-          ? <Route component = {locForNav ? Mobiletop  : Searchbar }/>
+          ? <Route render = {locForNav ? () => ( <Mobiletop/> )  : () =>  ( <Searchbar mobileStyle />) }/>
           : <Route render = {()=> <Desktopnav type={this.state.barStatus}/>}/>
         }
         <Switch location={isModal ? this.previousLocation : location}>

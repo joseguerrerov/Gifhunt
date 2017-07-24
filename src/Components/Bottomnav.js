@@ -13,6 +13,10 @@ class Bottomnav extends Component {
     this.props.randomCall();
   }
 
+  checkOffset = () => {
+    console.log(window.scrollY)
+  }
+
 
   render() {
 
@@ -50,7 +54,7 @@ class Bottomnav extends Component {
 
     return (
       <div style = {styles.bottomNav}>
-        <NavLink exact to="/" activeClassName="selected-bottom-nav" style={styles.ref}>
+        <NavLink exact to="/" activeClassName="selected-bottom-nav" style={styles.ref} onClick={this.checkOffset}>
           <i className="material-icons" style={styles.icons}>whatshot</i>
           <div style={styles.title}>Trending</div>
         </NavLink>

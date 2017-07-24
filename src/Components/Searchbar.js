@@ -51,6 +51,12 @@ class Searchbar extends Component {
           borderRadius: '10px',
           width: '40%',
         },
+        mobile : {
+          position: 'fixed',
+          top: '0',
+          zIndex: '1',
+          borderRadius: '0'
+        }
       },
       input:{
         width: '90%',
@@ -76,7 +82,7 @@ class Searchbar extends Component {
 
 
     return (
-      <form style={styles.searchBar} onSubmit={this.searchGif}>
+      <form style={[styles.searchBar, this.props.mobileStyle ? styles.searchBar.mobile: null]} onSubmit={this.searchGif}>
         <input type="search"
           onChange={this.onSearchChange}
           style={styles.input}

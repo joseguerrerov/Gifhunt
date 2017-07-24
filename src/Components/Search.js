@@ -24,7 +24,9 @@ class Search extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    //Cehck if the next gif array is empty or not
+    if(nextProps.location.pathname){
+      window.scrollTo(0, 0)
+    }
     if(nextProps.gifs.length > 0){
       this.setState({
         result: true
@@ -72,7 +74,6 @@ class Search extends Component {
   }
 
   render() {
-
     const setMarginTop = () =>(
       this.props.isMobile ? '67px' : '2em'
     )
