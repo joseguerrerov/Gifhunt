@@ -33,10 +33,6 @@ class Appview extends Component {
     barStatus : 'default',
     gifById: {},
     randomGif:{},
-    routeOffset : {
-      home: '',
-      search: ''
-    }
   }
 
   //function to search
@@ -95,11 +91,16 @@ class Appview extends Component {
   }
 
   //Function to store offset of routes
-  saveRouteOffset = (route, offset) => {
-
-    if(typeof route !== 'undefined' && typeof offset !== 'undefined'){
-
-    }
+  saveRouteOffset = (route, pageOffset) => {
+      if(route !== '/'){
+        this.setState({
+          searchOffset: pageOffset,
+        })
+      }else {
+        this.setState({
+          homeOffset: pageOffset,
+        })
+      }
 
   }
 
@@ -139,13 +140,13 @@ class Appview extends Component {
         <Switch location={isModal ? this.previousLocation : location}>
 
           {isMobile
-            ?<Route exact path="/" render={() => ( <Search gifs={this.state.gifs} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile}/> )}/>
+            ?<Route exact path="/" render={() => ( <Search gifs={this.state.gifs} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile} pagOffset={this.state.homeOffset}/>)}/>
             :<Route exact path="/" component={Home}/>
           }
 
           <Route exact path="/search" render={() => ( <Redirect to="/search/trending"/>)}/>
           <Route exact path="/search/:name" render = {()=>
-            <Search gifs={this.state.gifs} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile}/>}
+            <Search gifs={this.state.gifs} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile} pagOffset={this.state.searchOffset}/>}
           />
           <Route exact path="/gif/:id" render ={ () => <Gifview gif={this.state.gifById} onLoad={this.getGifById} isMobile={isMobile}/>}/>
           <Route exact path="/random-gif" render={() => <Randomgif gif={this.state.randomGif} isMobile={isMobile}/>}/>
@@ -160,7 +161,7 @@ class Appview extends Component {
           : null
         }
         {isMobile
-          ? <Route render={()=> <Bottomnav randomCall={this.getRandomGif}/>}/>
+          ? <Route render={()=> <Bottomnav randomCall={this.getRandomGif} saveOffset={this.saveRouteOffset}/>}/>
           : null
         }
 
