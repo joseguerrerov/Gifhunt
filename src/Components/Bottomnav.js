@@ -11,7 +11,6 @@ class Bottomnav extends Component {
   //Call random function
   callRandom = () => {
     this.props.randomCall()
-    this.checkOffset()
   }
 
   checkOffset = () => {

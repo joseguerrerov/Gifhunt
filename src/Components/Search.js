@@ -25,6 +25,7 @@ class Search extends Component {
   }
 
   componentWillReceiveProps(nextProps){
+
     window.scrollTo(0, nextProps.pagOffset)
     /*if(nextProps.location.pathname && !nextProps.pagOffset){
       window.scrollTo(0, 0)
@@ -40,9 +41,7 @@ class Search extends Component {
     }
     //Check if a new search must start
     if(this.props.match.params.name !== nextProps.match.params.name ){
-      console.log('tenemos que hacer algo');
       this.props.onLoad(nextProps.match.params.name)
-      console.log('true')
     }
   }
 
@@ -68,7 +67,7 @@ class Search extends Component {
         )
       )
     }else if (!this.state.result){
-      console.log('hola');
+
       return(
         <Emptysearch />
       )
