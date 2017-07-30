@@ -55,7 +55,10 @@ class Searchbar extends Component {
           position: 'fixed',
           top: '0',
           zIndex: '1',
-          borderRadius: '0'
+          height: '59px',
+          borderRadius: '0',
+          padding: '0 0.5em',
+          boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px'
         }
       },
       input:{
@@ -71,6 +74,12 @@ class Searchbar extends Component {
         '@media (min-width: 600px)': {
           padding: '1.2em',
         },
+        mobile:{
+          borderBottom : '0',
+          ':focus':{
+            borderBottom: '0',
+          }
+        }
       },
       button:{
         width:'10%',
@@ -85,7 +94,7 @@ class Searchbar extends Component {
       <form style={[styles.searchBar, this.props.mobileStyle ? styles.searchBar.mobile: null]} onSubmit={this.searchGif}>
         <input type="search"
           onChange={this.onSearchChange}
-          style={styles.input}
+          style={[styles.input, this.props.mobileStyle ? styles.input.mobile : null]}
           name="search"
           ref = {(input) => this.query = input}
           placeholder="Search"

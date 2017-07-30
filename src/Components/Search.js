@@ -92,7 +92,7 @@ class Search extends Component {
         flexWrap: 'wrap',
         alignItems: 'flex-start',
         marginTop: setMarginTop(),
-        paddingBottom: '70px'
+        paddingBottom: '70px',
       },
     }
 
