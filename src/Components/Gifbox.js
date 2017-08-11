@@ -159,6 +159,7 @@ class Gifbox extends Component {
         transition: '400ms'
       },
       embedHolder:{
+        width: '0%',
         position:'absolute',
         zIndex: '-100000',
         outline: 'none',
