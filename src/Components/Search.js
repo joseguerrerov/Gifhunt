@@ -25,7 +25,7 @@ class Search extends Component {
 
   componentWillReceiveProps(nextProps){
     console.log('prop', nextProps.pagOffset);
-    
+
       window.scrollTo(0, nextProps.pagOffset)
 
     /*if(nextProps.location.pathname && !nextProps.pagOffset){
@@ -64,6 +64,8 @@ class Search extends Component {
             height= '40vh'
             instant
             size="cover"
+            isMobile={this.props.isMobile}
+            isSearchTab={this.props.isSearchTab}
           />
         )
       )
@@ -87,7 +89,7 @@ class Search extends Component {
     const styles = {
       searchResults: {
         minHeight: 'calc(100vh - 76px)',
-        maxWidth: '100%',
+        width: '100%',
         padding: setPadding(),
         display: 'flex',
         flexWrap: 'wrap',

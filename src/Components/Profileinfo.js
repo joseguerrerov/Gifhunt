@@ -59,7 +59,7 @@ class Profileinfo extends Component {
 
     return (
       <div style = {styles.infoHolder}>
-        <a style ={styles.infoHolder.info} href={this.props.href} target='_blank'>
+        <a style ={styles.infoHolder.info} href={this.props.href} target='_blank' rel="noopener">
           <div style ={styles.avatarActive}></div>
           {this.props.username.length > 0 &&
             <div style={styles.infoHolder.info.usernameActive}>{this.props.username}</div>

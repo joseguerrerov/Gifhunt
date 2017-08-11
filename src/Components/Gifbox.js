@@ -29,7 +29,7 @@ class Gifbox extends Component {
     msgDisplay: 'none',
     username: '',
     avatar: '',
-    profileUrl : ''
+    profileUrl : '',
   }
 
   componentDidMount(){
@@ -101,6 +101,19 @@ class Gifbox extends Component {
     //this.props.history.push(`/gif/${this.props.show}`)
   }
 
+  setMobileHeight = () =>(
+    this.props.isMobile &&  this.props.isSearchTab ? '110px' : '50vh'
+  )
+
+  setMobileFlex = () =>(
+    this.props.isMobile &&  this.props.isSearchTab ? '1 calc(33% - 3px)' : 'none'
+  )
+
+  setMobileMargin = () =>(
+    this.props.isMobile &&  this.props.isSearchTab ? '1.5px' : '1em 0'
+  )
+
+
 
 
   render() {
@@ -108,7 +121,8 @@ class Gifbox extends Component {
     const styles = {
       holder: {
         width: '100%',
-        margin: '1em 0',
+        flex: this.setMobileFlex(),
+        margin: this.setMobileMargin(),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -128,7 +142,7 @@ class Gifbox extends Component {
         backgroundSize: this.state.size,
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        height: '50vh',
+        height: this.setMobileHeight(),
         width: '100%',
         '@media (min-width: 600px)': {
           height: this.state.height,
@@ -158,7 +172,11 @@ class Gifbox extends Component {
 
     return (
       <div style = {[styles.holder, this.props.style]} onClick={this.props.onClick}>
-        <Profileinfo username={this.state.username} avatar={this.state.avatar} href={this.state.profileUrl}/>
+        {this.props.isMobile && this.props.isSearchTab
+          ?null
+          :<Profileinfo username={this.state.username} avatar={this.state.avatar} href={this.state.profileUrl}/>
+        }
+
         <div style={styles.gif}>
           <textarea
             readOnly='true'
@@ -170,7 +188,10 @@ class Gifbox extends Component {
             Copy to clipboard
           </div>
         </div>
-        <Socialfot embedAction={this.copyClipboard} showAction={this.showHdGif} embed={this.state.embed} show={this.props.show} href={`/gif/${this.props.show}`}/>
+        {this.props.isMobile && this.props.isSearchTab
+          ?null
+          :<Socialfot embedAction={this.copyClipboard} showAction={this.showHdGif} embed={this.state.embed} show={this.props.show} href={`/gif/${this.props.show}`}/>
+        }
       </div>
 
     );
