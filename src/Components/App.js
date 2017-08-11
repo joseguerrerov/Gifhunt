@@ -36,7 +36,7 @@ class Appview extends Component {
   }
 
   //function to search
-  performSearch = (query = 'trending', limit = 12) =>{
+  performSearch = (query = 'trending', limit = 12, pagination = 0) =>{
     let apiEndPoint
     if(query === 'trending'){
       apiEndPoint =`https://api.giphy.com/v1/gifs/trending?api_key=1dbc2f313ec44971b8ee0815b6951dca&limit=${limit}`
@@ -50,10 +50,21 @@ class Appview extends Component {
         title : query,
         barStatus : 'active'
       })
+      /*
+      this.setState({
+        gifs: [...this.state.gifs, ...response.data.data],
+        title : query,
+        barStatus : 'active'
+      })
+      */
     })
     .catch(error => {
       console.log('Error fetching and parsing data, search');
     })
+  }
+
+  test=()=>{
+    this.performSearch('trending', 12 , this.state.gifs.length)
   }
 
   //Function to search by gifid
@@ -152,6 +163,8 @@ class Appview extends Component {
           <Route exact path="/random-gif" render={() => <Randomgif gif={this.state.randomGif} isMobile={isMobile}/>}/>
           <Route component = {Lost} />
         </Switch>
+
+
 
 
         {isModal

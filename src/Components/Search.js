@@ -21,12 +21,13 @@ class Search extends Component {
   componentDidMount(){
     window.scrollTo(0, 0)
     this.props.onLoad(this.props.match.params.name)
-
   }
 
   componentWillReceiveProps(nextProps){
+    console.log('prop', nextProps.pagOffset);
+    
+      window.scrollTo(0, nextProps.pagOffset)
 
-    window.scrollTo(0, nextProps.pagOffset)
     /*if(nextProps.location.pathname && !nextProps.pagOffset){
       window.scrollTo(0, 0)
     }*/

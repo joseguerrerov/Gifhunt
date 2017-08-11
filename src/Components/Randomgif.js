@@ -15,7 +15,7 @@ class Randomgif extends Component {
 
   componentDidMount(){
     this.setState({
-      fondo: this.props.gif.fixed_width_downsampled_url,
+      fondo: this.props.gif.fixed_height_downsampled_url,
       embed: this.props.gif.image_url
     })
   }
@@ -23,7 +23,7 @@ class Randomgif extends Component {
   componentWillReceiveProps(nextProps){
     if(nextProps.gif){
       this.setState({
-        fondo: nextProps.gif.fixed_width_downsampled_url,
+        fondo: nextProps.gif.fixed_height_downsampled_url,
         embed: nextProps.gif.image_url
       })
     }
@@ -53,7 +53,7 @@ class Randomgif extends Component {
       <Gifbox
         fondoGif={this.state.fondo}
         embed={this.state.embed}
-        height="60vh"
+        height="calc(50vh - 120px)"
         width="60%"
         size="contain"
       />

@@ -1,6 +1,6 @@
 {
-  "short_name": "gifdigest",
-  "name": "Nacho Gifdigest",
+  "short_name": "Gifhunt",
+  "name": "Gifhunt",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,7 +8,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "./200.html",
+  "start_url": "https://gifhunt.surge.sh/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
