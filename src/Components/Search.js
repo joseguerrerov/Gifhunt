@@ -108,13 +108,9 @@ class Search extends Component {
       this.props.isMobile ? '0' : '0.5em'
     )
 
-    const setQueryMargin = () =>{
-      if(this.state.totalCount > 0){
-        return '5px'
-      }else{
-        return '1em'
-      }
-    }
+    const setQueryMargin = () =>(
+      this.state.totalCount > 0 ? '5px' : '1em'
+    )
 
     const styles = {
       searchResults: {

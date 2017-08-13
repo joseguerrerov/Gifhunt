@@ -61,6 +61,10 @@ render() {
     this.props.isMobile ? '67px' : '2em'
   )
 
+  const setalign = () =>(
+    this.props.isMobile ? 'flex-start' : 'center'
+  )
+
   const styles = {
     searchResults: {
       minHeight: 'calc(100vh - 76px)',
@@ -68,7 +72,7 @@ render() {
       padding: '0 0.5em',
       display: 'flex',
       flexWrap: 'wrap',
-      alignItems: 'center',
+      alignItems: setalign(),
       justifyContent: 'center',
       backgroundColor: '#fafafa',
       marginTop: setMarginTop(),

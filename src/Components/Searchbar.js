@@ -92,7 +92,7 @@ class Searchbar extends Component {
 
 
     return (
-      <form style={[styles.searchBar, this.props.mobileStyle ? styles.searchBar.mobile: null]} onSubmit={this.searchGif}>
+      <form style={[styles.searchBar, this.props.mobileStyle ? styles.searchBar.mobile: null]} onSubmit={this.searchGif} autoComplete="off">
         <input type="search"
           onChange={this.onSearchChange}
           style={[styles.input, this.props.mobileStyle ? styles.input.mobile : null]}
