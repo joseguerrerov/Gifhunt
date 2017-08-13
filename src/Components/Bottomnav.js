@@ -8,13 +8,19 @@ import {withRouter, NavLink} from 'react-router-dom'
 
 class Bottomnav extends Component {
 
-  //Call random function
-  callRandom = () => {
-    this.props.randomCall()
+  componentWillMount = () =>{
+    this.setState({
+      pointer: 'Trending'
+    })
   }
 
   checkOffset = () => {
     this.props.saveOffset(this.props.location.pathname, window.scrollY)
+  }
+
+  callRandom = () => {
+    this.props.randomCall()
+    this.checkOffset()
   }
 
 
@@ -56,7 +62,7 @@ class Bottomnav extends Component {
       <div style = {styles.bottomNav}>
         <NavLink exact to="/" activeClassName="selected-bottom-nav" style={styles.ref} onClick={this.checkOffset}>
           <i className="material-icons" style={styles.icons}>whatshot</i>
-          <div style={styles.title}>Trending</div>
+          <div style={styles.title}>{this.state.pointer}</div>
         </NavLink>
         <NavLink exact to="/search/trending" activeClassName="selected-bottom-nav" style={styles.ref} onClick={this.checkOffset}>
           <i className="material-icons" style={styles.icons}>search</i>

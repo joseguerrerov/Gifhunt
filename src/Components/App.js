@@ -28,7 +28,10 @@ import Searchbar from './Searchbar'
 class Appview extends Component {
 
   state ={
-    gifs: [],
+    gifsHome: [],
+    gifsSearch: [],
+    paginationHome: 1,
+    paginationSearch: 1,
     title: '',
     barStatus : 'default',
     gifById: {},
@@ -36,7 +39,7 @@ class Appview extends Component {
   }
 
   //function to search
-  performSearch = (query = 'trending', limit = 12, pagination = 0) =>{
+  performSearch = (query = 'trending', limit = 12, pagination = 0, tab = 'home') =>{
     let apiEndPoint
     if(query === 'trending'){
       apiEndPoint =`https://api.giphy.com/v1/gifs/trending?api_key=1dbc2f313ec44971b8ee0815b6951dca&limit=${limit}`
@@ -45,14 +48,24 @@ class Appview extends Component {
     }
     axios.get(apiEndPoint)
     .then(response => {
+      if(tab === 'home'){
+        this.setState({
+          gifsHome: response.data.data,
+          paginationHome: response.data.pagination
+        })
+      }else if (tab === 'search'){
+        this.setState({
+          gifsSearch: response.data.data,
+          paginationSearch: response.data.pagination
+        })
+      }
       this.setState({
-        gifs: response.data.data,
         title : query,
         barStatus : 'active'
       })
       /*
       this.setState({
-        gifs: [...this.state.gifs, ...response.data.data],
+        gifs: [...this.state.gifsHome, ...response.data.data],
         title : query,
         barStatus : 'active'
       })
@@ -64,7 +77,7 @@ class Appview extends Component {
   }
 
   test=()=>{
-    this.performSearch('trending', 12 , this.state.gifs.length)
+    this.performSearch('trending', 12 , this.state.gifsHome.length)
   }
 
   //Function to search by gifid
@@ -97,17 +110,23 @@ class Appview extends Component {
   setOffset = (index) =>{
     this.setState({
       modalPos: index,
-      gifByIdClick: this.state.gifs[index],
+      gifByIdClick: this.state.gifsHome[index],
+    })
+  }
+
+  saveSearchStatus = (query) => {
+    this.setState({
+      searchEndPoint: query
     })
   }
 
   //Function to store offset of routes
   saveRouteOffset = (route, pageOffset) => {
-      if(route !== '/'){
+      if(route !== '/' && route !== '/random-gif'){
         this.setState({
           searchOffset: pageOffset,
         })
-      }else {
+      }else{
         this.setState({
           homeOffset: pageOffset,
         })
@@ -151,13 +170,14 @@ class Appview extends Component {
         <Switch location={isModal ? this.previousLocation : location}>
 
           {isMobile
-            ?<Route exact path="/" render={() => ( <Search gifs={this.state.gifs} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile} pagOffset={this.state.homeOffset}/>)}/>
+            ?<Route exact path="/" render={() => ( <Search gifs={this.state.gifsHome} pagination={this.state.paginationHome} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile} pagOffset={this.state.homeOffset}/>)}/>
             :<Route exact path="/" component={Home}/>
           }
 
           <Route exact path="/search" render={() => ( <Redirect to="/search/trending"/>)}/>
           <Route exact path="/search/:name" render = {()=>
-            <Search gifs={this.state.gifs} onLoad={this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile} pagOffset={this.state.searchOffset} isSearchTab/>}
+            <Search gifs={isMobile ? this.state.gifsSearch : this.state.gifsHome}
+              pagination={isMobile ? this.state.paginationSearch : this.state.paginationHome} onLoad={this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile} pagOffset={this.state.searchOffset} isSearchTab/>}
           />
           <Route exact path="/gif/:id" render ={ () => <Gifview gif={this.state.gifById} onLoad={this.getGifById} isMobile={isMobile}/>}/>
           <Route exact path="/random-gif" render={() => <Randomgif gif={this.state.randomGif} isMobile={isMobile}/>}/>
@@ -174,7 +194,7 @@ class Appview extends Component {
           : null
         }
         {isMobile
-          ? <Route render={()=> <Bottomnav randomCall={this.getRandomGif} saveOffset={this.saveRouteOffset}/>}/>
+          ? <Route render={()=> <Bottomnav randomCall={this.getRandomGif} saveOffset={this.saveRouteOffset} callBack={this.state.searchEndPoint} saveSearch={this.saveSearchStatus}/>}/>
           : null
         }
 

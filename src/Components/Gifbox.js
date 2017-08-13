@@ -9,7 +9,7 @@ import Profileinfo from './Profileinfo'
 import Socialfot from './Socialfot'
 
 //Assets
-import load from '../Img/ripple.gif'
+
 
 
 class Gifbox extends Component {

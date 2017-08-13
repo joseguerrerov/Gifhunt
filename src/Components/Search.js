@@ -7,30 +7,37 @@ import {withRouter} from 'react-router-dom'
 //Components
 import Gifbox from './Gifbox'
 import Emptysearch from './Emptysearch'
+import Loading from './Loading'
 
 
 class Search extends Component {
 
   state = {
-    result: true
+    result: true,
+    pagination: this.props.pagination.count
   }
 
   gifAction =(index) => {
     this.props.gifAction(index)
   }
   componentDidMount(){
-    window.scrollTo(0, 0)
-    this.props.onLoad(this.props.match.params.name)
+    window.scrollTo(0,0)
+    console.log(this.props.pagination)
+    if(this.props.isMobile && this.props.isSearchTab){
+      this.props.onLoad(this.props.match.params.name, 27, 0, 'search')
+    }else{
+      this.props.onLoad(this.props.match.params.name)
+    }
+
   }
 
   componentWillReceiveProps(nextProps){
-    console.log('prop', nextProps.pagOffset);
-
-      window.scrollTo(0, nextProps.pagOffset)
-
-    /*if(nextProps.location.pathname && !nextProps.pagOffset){
-      window.scrollTo(0, 0)
-    }*/
+    window.scrollTo(0, nextProps.pagOffset)
+    if(nextProps.pagination.count !== this.props.pagination.count){
+      this.setState({
+        pagination: nextProps.pagination.count
+      })
+    }
     if(nextProps.gifs.length > 0){
       this.setState({
         result: true
@@ -42,11 +49,17 @@ class Search extends Component {
     }
     //Check if a new search must start
     if(this.props.match.params.name !== nextProps.match.params.name ){
-      this.props.onLoad(nextProps.match.params.name)
+      console.log('entrando');
+      if(this.props.isMobile && nextProps.isSearchTab){
+        this.props.onLoad(nextProps.match.params.name, 51, 0, 'search')
+      }else{
+        this.props.onLoad(nextProps.match.params.name)
+      }
     }
   }
 
   getGifs = () =>{
+    console.log(this.state.pagination);
     const results = this.props.gifs
     if(this.state.result){
       return(
@@ -54,7 +67,7 @@ class Search extends Component {
           <Gifbox
             action={this.gifAction}
             offset={index}
-            fondoGif={gif.images.fixed_width.url}
+            fondoGif={this.props.isMobile && this.props.isSearchTab?gif.images.preview_gif.url:gif.images.fixed_width.url}
             embed={gif.images.fixed_height.url}
             slug={gif.slug}
             show={this.props.isMobile ? null :gif.id}
@@ -69,8 +82,11 @@ class Search extends Component {
           />
         )
       )
-    }else if (!this.state.result){
-
+    }else if (typeof this.state.pagination === 'undefined' || this.state.pagination === 1){
+      return(
+        <Loading/>
+      )
+    }else if(typeof this.state.pagination !== 'undefined' && this.state.pagination === 0){
       return(
         <Emptysearch />
       )
@@ -78,6 +94,7 @@ class Search extends Component {
   }
 
   render() {
+
     const setMarginTop = () =>(
       this.props.isMobile ? '67px' : '2em'
     )
@@ -96,7 +113,8 @@ class Search extends Component {
         alignItems: 'flex-start',
         marginTop: setMarginTop(),
         paddingBottom: '70px',
-      },
+        position:'relative',
+      }
     }
 
     return (
