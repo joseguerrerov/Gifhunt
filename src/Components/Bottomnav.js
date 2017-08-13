@@ -64,7 +64,7 @@ class Bottomnav extends Component {
           <i className="material-icons" style={styles.icons}>whatshot</i>
           <div style={styles.title}>{this.state.pointer}</div>
         </NavLink>
-        <NavLink exact to="/search/trending" activeClassName="selected-bottom-nav" style={styles.ref} onClick={this.checkOffset}>
+        <NavLink exact to={this.props.searchEndPoint} activeClassName="selected-bottom-nav" style={styles.ref} onClick={this.checkOffset}>
           <i className="material-icons" style={styles.icons}>search</i>
           <div style={styles.title}>Search</div>
         </NavLink>

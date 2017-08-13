@@ -32,6 +32,7 @@ class Appview extends Component {
     gifsSearch: [],
     paginationHome: 1,
     paginationSearch: 1,
+    searchTabPoint: '/search/trending',
     title: '',
     barStatus : 'default',
     gifById: {},
@@ -56,7 +57,9 @@ class Appview extends Component {
       }else if (tab === 'search'){
         this.setState({
           gifsSearch: response.data.data,
-          paginationSearch: response.data.pagination
+          paginationSearch: response.data.pagination,
+          searchTabPoint: `/search/${query}`,
+          query: query
         })
       }
       this.setState({
@@ -114,11 +117,6 @@ class Appview extends Component {
     })
   }
 
-  saveSearchStatus = (query) => {
-    this.setState({
-      searchEndPoint: query
-    })
-  }
 
   //Function to store offset of routes
   saveRouteOffset = (route, pageOffset) => {
@@ -164,7 +162,7 @@ class Appview extends Component {
 
       <div>
         {isMobile
-          ? <Route render = {locForNav ? () => ( <Mobiletop/> )  : () =>  ( <Searchbar mobileStyle />) }/>
+          ? <Route render = {locForNav ? () => ( <Mobiletop/> )  : () =>  ( <Searchbar mobileStyle/>) }/>
           : <Route render = {()=> <Desktopnav type={this.state.barStatus}/>}/>
         }
         <Switch location={isModal ? this.previousLocation : location}>
@@ -194,7 +192,7 @@ class Appview extends Component {
           : null
         }
         {isMobile
-          ? <Route render={()=> <Bottomnav randomCall={this.getRandomGif} saveOffset={this.saveRouteOffset} callBack={this.state.searchEndPoint} saveSearch={this.saveSearchStatus}/>}/>
+          ? <Route render={()=> <Bottomnav randomCall={this.getRandomGif} saveOffset={this.saveRouteOffset} searchEndPoint={this.state.searchTabPoint}/>}/>
           : null
         }
 

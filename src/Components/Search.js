@@ -96,7 +96,7 @@ class Search extends Component {
   render() {
 
     const setMarginTop = () =>(
-      this.props.isMobile ? '67px' : '2em'
+      this.props.isMobile ? '67px' : 'calc(2em - 1px)'
     )
 
     const setPadding = () => (
@@ -111,15 +111,27 @@ class Search extends Component {
         display: 'flex',
         flexWrap: 'wrap',
         alignItems: 'flex-start',
+        position:'relative',
+      },
+      holder:{
         marginTop: setMarginTop(),
         paddingBottom: '70px',
-        position:'relative',
+        paddingTop: '1px'
+      },
+      query:{
+        textAlign: 'center',
+        color: '#696969',
+        fontWeight: '300'
       }
     }
 
     return (
-      <div style = {styles.searchResults}>
-        {this.getGifs()}
+      <div style={styles.holder}>
+        {this.props.isMobile && this.props.isSearchTab ? <h3 style={styles.query}>{this.props.match.params.name}</h3> :null
+        }
+        <div style = {styles.searchResults}>
+          {this.getGifs()}
+        </div>
       </div>
     );
   }

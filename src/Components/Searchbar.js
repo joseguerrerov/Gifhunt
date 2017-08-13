@@ -97,7 +97,7 @@ class Searchbar extends Component {
           style={[styles.input, this.props.mobileStyle ? styles.input.mobile : null]}
           name="search"
           ref = {(input) => this.query = input}
-          placeholder="Search"
+          placeholder="Search"  
         />
         <button type="submit" style={styles.button}><i className="material-icons">search</i></button>
       </form>
