@@ -14,7 +14,8 @@ class Search extends Component {
 
   state = {
     result: true,
-    pagination: this.props.pagination.count
+    pagination: this.props.pagination.count,
+    totalCount: this.props.pagination.total_count
   }
 
   gifAction =(index) => {
@@ -22,7 +23,6 @@ class Search extends Component {
   }
   componentDidMount(){
     window.scrollTo(0,0)
-    console.log(this.props.pagination)
     if(this.props.isMobile && this.props.isSearchTab){
       this.props.onLoad(this.props.match.params.name, 27, 0, 'search')
     }else{
@@ -32,10 +32,17 @@ class Search extends Component {
   }
 
   componentWillReceiveProps(nextProps){
+
     window.scrollTo(0, nextProps.pagOffset)
+
     if(nextProps.pagination.count !== this.props.pagination.count){
       this.setState({
         pagination: nextProps.pagination.count
+      })
+    }
+    if(nextProps.pagination.total_count !== this.props.pagination.total_count){
+      this.setState({
+        totalCount: nextProps.pagination.total_count
       })
     }
     if(nextProps.gifs.length > 0){
@@ -49,7 +56,6 @@ class Search extends Component {
     }
     //Check if a new search must start
     if(this.props.match.params.name !== nextProps.match.params.name ){
-      console.log('entrando');
       if(this.props.isMobile && nextProps.isSearchTab){
         this.props.onLoad(nextProps.match.params.name, 51, 0, 'search')
       }else{
@@ -59,7 +65,6 @@ class Search extends Component {
   }
 
   getGifs = () =>{
-    console.log(this.state.pagination);
     const results = this.props.gifs
     if(this.state.result){
       return(
@@ -103,6 +108,14 @@ class Search extends Component {
       this.props.isMobile ? '0' : '0.5em'
     )
 
+    const setQueryMargin = () =>{
+      if(this.state.totalCount > 0){
+        return '5px'
+      }else{
+        return '1em'
+      }
+    }
+
     const styles = {
       searchResults: {
         minHeight: 'calc(100vh - 76px)',
@@ -121,13 +134,33 @@ class Search extends Component {
       query:{
         textAlign: 'center',
         color: '#696969',
-        fontWeight: '300'
+        fontWeight: '300',
+        marginTop: '1em',
+        marginBottom: setQueryMargin()
+      },
+      count:{
+        marginTop: '0',
+        textAlign:' center',
+        color: '#696969',
+        fontWeight: '300',
+        fontSize: '0.8em',
+        marginBottom: '1.5em'
       }
     }
 
     return (
       <div style={styles.holder}>
-        {this.props.isMobile && this.props.isSearchTab ? <h3 style={styles.query}>{this.props.match.params.name}</h3> :null
+        {this.props.isMobile && this.props.isSearchTab
+          ?(
+            <div>
+              <h3 style={styles.query}>{this.props.match.params.name}</h3>
+              {this.state.totalCount > 0
+                ?<p style={styles.count}>Encontramos {this.state.totalCount} resultados</p>
+                :null
+              }
+            </div>
+          )
+          :null
         }
         <div style = {styles.searchResults}>
           {this.getGifs()}

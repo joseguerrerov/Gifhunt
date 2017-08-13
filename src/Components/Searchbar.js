@@ -67,6 +67,7 @@ class Searchbar extends Component {
         outline: 'none',
         padding: '1.2em 0.5em',
         transition: '400ms',
+        backgroundColor: '#fff',
         borderBottom: '4px solid #e4e4e4',
         ':focus':{
           borderBottom: '4px solid #c1c1c1'
@@ -97,7 +98,7 @@ class Searchbar extends Component {
           style={[styles.input, this.props.mobileStyle ? styles.input.mobile : null]}
           name="search"
           ref = {(input) => this.query = input}
-          placeholder="Search"  
+          placeholder="Search"
         />
         <button type="submit" style={styles.button}><i className="material-icons">search</i></button>
       </form>
