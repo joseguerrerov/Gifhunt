@@ -101,6 +101,11 @@ class Gifbox extends Component {
     //this.props.history.push(`/gif/${this.props.show}`)
   }
 
+  showGif = () =>{
+    this.props.history.push(`/gif/${this.props.loc}`)
+    this.props.saveOffset(this.props.location.pathname, window.scrollY)
+  }
+
   setMobileHeight = () =>(
     this.props.isMobile &&  this.props.isSearchTab ? '110px' : '50vh'
   )
@@ -172,7 +177,7 @@ class Gifbox extends Component {
     }
 
     return (
-      <div style = {[styles.holder, this.props.style]} onClick={this.props.onClick}>
+      <div style = {[styles.holder, this.props.style]} onClick={this.props.isMobile && this.props.isSearchTab ? this.showGif : null}>
         {this.props.isMobile && this.props.isSearchTab
           ?null
           :<Profileinfo username={this.state.username} avatar={this.state.avatar} href={this.state.profileUrl}/>

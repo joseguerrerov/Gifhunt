@@ -15,16 +15,25 @@ class Search extends Component {
   state = {
     result: true,
     pagination: this.props.pagination.count,
-    totalCount: this.props.pagination.total_count
+    totalCount: this.props.pagination.total_count,
+    scrollY: this.props.pagOffset
   }
 
-  gifAction =(index) => {
+  gifAction = (index) => {
     this.props.gifAction(index)
   }
+
+  saveOffset = (route, pageOffset) =>{
+    this.props.saveOffset(route, pageOffset)
+    this.setState({
+      scrollY: pageOffset
+    })
+  }
+
   componentDidMount(){
-    window.scrollTo(0,0)
+    this.state.scrollY > 0 ? window.scrollTo(0, this.state.scrollY) : window.scrollTo(0,0)
     if(this.props.isMobile && this.props.isSearchTab){
-      this.props.onLoad(this.props.match.params.name, 27, 0, 'search')
+      this.props.onLoad(this.props.match.params.name, 51, 0, 'search')
     }else{
       this.props.onLoad(this.props.match.params.name)
     }
@@ -33,8 +42,7 @@ class Search extends Component {
 
   componentWillReceiveProps(nextProps){
 
-    window.scrollTo(0, nextProps.pagOffset)
-
+    this.state.scrollY > 0 ? window.scrollTo(0, this.state.scrollY) : window.scrollTo(0, nextProps.pagOffset)
     if(nextProps.pagination.count !== this.props.pagination.count){
       this.setState({
         pagination: nextProps.pagination.count
@@ -64,6 +72,8 @@ class Search extends Component {
     }
   }
 
+
+
   getGifs = () =>{
     const results = this.props.gifs
     if(this.state.result){
@@ -72,11 +82,12 @@ class Search extends Component {
           <Gifbox
             action={this.gifAction}
             offset={index}
-            fondoGif={this.props.isMobile && this.props.isSearchTab?gif.images.preview_gif.url:gif.images.fixed_width.url}
+            fondoGif={this.props.isMobile && this.props.isSearchTab ? gif.images.preview_gif.url : gif.images.fixed_width.url}
             embed={gif.images.fixed_height.url}
             slug={gif.slug}
             show={this.props.isMobile ? null :gif.id}
             key={gif.id}
+            loc={gif.id}
             user={gif.user}
             width="33.33%"
             height= '40vh'
@@ -84,6 +95,7 @@ class Search extends Component {
             size="cover"
             isMobile={this.props.isMobile}
             isSearchTab={this.props.isSearchTab}
+            saveOffset={this.saveOffset}
           />
         )
       )
@@ -99,6 +111,8 @@ class Search extends Component {
   }
 
   render() {
+
+    console.log(window.scrollY);
 
     const setMarginTop = () =>(
       this.props.isMobile ? '67px' : 'calc(2em - 1px)'

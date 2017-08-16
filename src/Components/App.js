@@ -120,16 +120,15 @@ class Appview extends Component {
 
   //Function to store offset of routes
   saveRouteOffset = (route, pageOffset) => {
-      if(route !== '/' && route !== '/random-gif'){
+      if(route.includes('/search/')){
         this.setState({
           searchOffset: pageOffset,
         })
-      }else{
+      }else if(route === '/'){
         this.setState({
           homeOffset: pageOffset,
         })
       }
-
   }
 
   componentDidMount(){
@@ -168,14 +167,14 @@ class Appview extends Component {
         <Switch location={isModal ? this.previousLocation : location}>
 
           {isMobile
-            ?<Route exact path="/" render={() => ( <Search gifs={this.state.gifsHome} pagination={this.state.paginationHome} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile} pagOffset={this.state.homeOffset}/>)}/>
+            ?<Route exact path="/" render={() => ( <Search key="home" gifs={this.state.gifsHome} pagination={this.state.paginationHome} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile} pagOffset={this.state.homeOffset}/>)}/>
             :<Route exact path="/" component={Home}/>
           }
 
           <Route exact path="/search" render={() => ( <Redirect to="/search/trending"/>)}/>
           <Route exact path="/search/:name" render = {()=>
-            <Search gifs={isMobile ? this.state.gifsSearch : this.state.gifsHome}
-              pagination={isMobile ? this.state.paginationSearch : this.state.paginationHome} onLoad={this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile} pagOffset={this.state.searchOffset} isSearchTab/>}
+            <Search key="searchTab" gifs={isMobile ? this.state.gifsSearch : this.state.gifsHome}
+              pagination={isMobile ? this.state.paginationSearch : this.state.paginationHome} onLoad={this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile} pagOffset={this.state.searchOffset} isSearchTab saveOffset={this.saveRouteOffset}/>}
           />
           <Route exact path="/gif/:id" render ={ () => <Gifview gif={this.state.gifById} onLoad={this.getGifById} isMobile={isMobile}/>}/>
           <Route exact path="/random-gif" render={() => <Randomgif gif={this.state.randomGif} isMobile={isMobile}/>}/>

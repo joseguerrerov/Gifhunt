@@ -65,11 +65,15 @@ render() {
     this.props.isMobile ? 'flex-start' : 'center'
   )
 
+  const setPadding = () => (
+    this.props.isMobile ? '0' : '0 0.5em'
+  )
+
   const styles = {
     searchResults: {
       minHeight: 'calc(100vh - 76px)',
       width: '100%',
-      padding: '0 0.5em',
+      padding: setPadding(),
       display: 'flex',
       flexWrap: 'wrap',
       alignItems: setalign(),
