@@ -26,6 +26,7 @@ class Bottomnav extends Component {
 
   render() {
 
+    const isGifView = this.props.location.pathname.includes("/gif/")
 
     const styles = {
       bottomNav: {
@@ -41,7 +42,11 @@ class Bottomnav extends Component {
       },
       icons:{
         color: '#696969',
-        marginBottom: '6px'
+        marginBottom: '6px',
+        active:{
+          color: '#4285F4',
+          fontWeight: '400',
+        }
       },
       ref:{
         flex: '1',
@@ -54,7 +59,11 @@ class Bottomnav extends Component {
         color: '#696969',
       },
       title:{
-        fontSize: '12px'
+        fontSize: '12px',
+        active:{
+          color: '#4285F4',
+          fontWeight: '400',
+        }
       }
     }
 
@@ -65,8 +74,8 @@ class Bottomnav extends Component {
           <div style={styles.title}>{this.state.pointer}</div>
         </NavLink>
         <NavLink exact to={this.props.searchEndPoint} activeClassName="selected-bottom-nav" style={styles.ref} onClick={this.checkOffset}>
-          <i className="material-icons" style={styles.icons}>search</i>
-          <div style={styles.title}>Search</div>
+          <i className="material-icons" style={[styles.icons, isGifView ? styles.icons.active : null]}>search</i>
+          <div style={[styles.title, isGifView ? styles.title.active : null]}>Search</div>
         </NavLink>
         <NavLink exact to="/random-gif" activeClassName="selected-bottom-nav" style = {styles.ref} onClick={this.callRandom}>
           <i className="material-icons" style={styles.icons}>shuffle</i>
