@@ -80,10 +80,6 @@ class Appview extends Component {
   })
 }
 
-test=()=>{
-  this.performSearch('trending', 12 , this.state.gifsHome.length)
-}
-
 //Function to search by gifid
 getGifById = (id = '26gR0t9sNVrbVEhPO') => {
   axios.get(`https://api.giphy.com/v1/gifs/${id}?api_key=1dbc2f313ec44971b8ee0815b6951dca`)
