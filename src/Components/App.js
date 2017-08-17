@@ -21,6 +21,7 @@ import Randomgif from './Randomgif'
 import Lost from './Lost'
 import Bottomnav from './Bottomnav'
 import Searchbar from './Searchbar'
+import GifTopNav from './GifTopNav'
 
 
 //Assets
@@ -68,113 +69,128 @@ class Appview extends Component {
       })
       /*
       this.setState({
-        gifs: [...this.state.gifsHome, ...response.data.data],
-        title : query,
-        barStatus : 'active'
-      })
-      */
+      gifs: [...this.state.gifsHome, ...response.data.data],
+      title : query,
+      barStatus : 'active'
     })
-    .catch(error => {
-      console.log('Error fetching and parsing data, search');
-    })
-  }
+    */
+  })
+  .catch(error => {
+    console.log('Error fetching and parsing data, search');
+  })
+}
 
-  test=()=>{
-    this.performSearch('trending', 12 , this.state.gifsHome.length)
-  }
+test=()=>{
+  this.performSearch('trending', 12 , this.state.gifsHome.length)
+}
 
-  //Function to search by gifid
-  getGifById = (id = '26gR0t9sNVrbVEhPO') => {
-    axios.get(`https://api.giphy.com/v1/gifs/${id}?api_key=1dbc2f313ec44971b8ee0815b6951dca`)
-    .then(response =>{
-      this.setState({
-        gifById : response.data.data,
-      })
-    })
-    .catch(error => {
-      console.log('Error fetching and parsing data, byId')
-    })
-  }
-
-  //Get random gif
-  getRandomGif = () => {
-    axios.get('https://api.giphy.com/v1/gifs/random?api_key=1dbc2f313ec44971b8ee0815b6951dca')
-    .then(response =>{
-      this.setState({
-        randomGif : response.data.data,
-      })
-    })
-    .catch(error => {
-      console.log('Error fetching and parsing data, random')
-    })
-  }
-
-  //Function to set offest for paginitation
-  setOffset = (index) =>{
+//Function to search by gifid
+getGifById = (id = '26gR0t9sNVrbVEhPO') => {
+  axios.get(`https://api.giphy.com/v1/gifs/${id}?api_key=1dbc2f313ec44971b8ee0815b6951dca`)
+  .then(response =>{
     this.setState({
-      modalPos: index,
-      gifByIdClick: this.state.gifsHome[index],
+      gifById : response.data.data,
+    })
+  })
+  .catch(error => {
+    console.log('Error fetching and parsing data, byId')
+  })
+}
+
+//Get random gif
+getRandomGif = () => {
+  axios.get('https://api.giphy.com/v1/gifs/random?api_key=1dbc2f313ec44971b8ee0815b6951dca')
+  .then(response =>{
+    this.setState({
+      randomGif : response.data.data,
+    })
+  })
+  .catch(error => {
+    console.log('Error fetching and parsing data, random')
+  })
+}
+
+//Function to set offest for paginitation
+setOffset = (index) =>{
+  this.setState({
+    modalPos: index,
+    gifByIdClick: this.state.gifsHome[index],
+  })
+}
+
+
+//Function to store offset of routes
+saveRouteOffset = (route, pageOffset) => {
+  if(route.includes('/search/')){
+    this.setState({
+      searchOffset: pageOffset,
+    })
+  }else if(route === '/'){
+    this.setState({
+      homeOffset: pageOffset,
     })
   }
+}
 
+componentDidMount(){
+  this.getRandomGif()
+}
 
-  //Function to store offset of routes
-  saveRouteOffset = (route, pageOffset) => {
-      if(route.includes('/search/')){
-        this.setState({
-          searchOffset: pageOffset,
-        })
-      }else if(route === '/'){
-        this.setState({
-          homeOffset: pageOffset,
-        })
-      }
+previousLocation = this.props.location
+
+componentWillUpdate(nextProps) {
+  const { location } = this.props
+  // set previousLocation if props.location is not modal
+  if (nextProps.history.action !== 'POP' && (!location.state || !location.state.modal)){
+    this.previousLocation = this.props.location
   }
+}
 
-  componentDidMount(){
-    this.getRandomGif()
-  }
+render() {
 
-  previousLocation = this.props.location
-
-  componentWillUpdate(nextProps) {
-    const { location } = this.props
-    // set previousLocation if props.location is not modal
-    if (nextProps.history.action !== 'POP' && (!location.state || !location.state.modal)){
-      this.previousLocation = this.props.location
+  const setTopNav = () =>{
+    if(this.props.location.pathname === "/" || this.props.location.pathname === "/random-gif"){
+      return(
+        <Mobiletop/>
+      )
+    }else if(this.props.location.pathname.includes("/search/")){
+      return(
+        <Searchbar mobileStyle/>
+      )
+    }else if(this.props.location.pathname.includes("/gif/")){
+      return(
+        <GifTopNav query={this.state.query}/>
+      )
     }
   }
 
-  render() {
-
-    const locForNav = this.props.location.pathname === "/" || this.props.location.pathname === "/random-gif"
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-    const { location } = this.props
-    const isModal = !!(
-      location.state &&
-      location.state.modal &&
-      this.previousLocation !== location // not initial render
-    )
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  const { location } = this.props
+  const isModal = !!(
+    location.state &&
+    location.state.modal &&
+    this.previousLocation !== location // not initial render
+  )
 
 
-    return (
+  return (
 
-      <div>
+    <div>
+      {isMobile
+        ? <Route render = {() => setTopNav()}/>
+        : <Route render = {()=> <Desktopnav type={this.state.barStatus}/>}/>
+      }
+      <Switch location={isModal ? this.previousLocation : location}>
+
         {isMobile
-          ? <Route render = {locForNav ? () => ( <Mobiletop/> )  : () =>  ( <Searchbar mobileStyle/>) }/>
-          : <Route render = {()=> <Desktopnav type={this.state.barStatus}/>}/>
+          ?<Route exact path="/" render={() => ( <Search key="home" gifs={this.state.gifsHome} pagination={this.state.paginationHome} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile} pagOffset={this.state.homeOffset}/>)}/>
+          :<Route exact path="/" component={Home}/>
         }
-        <Switch location={isModal ? this.previousLocation : location}>
 
-          {isMobile
-            ?<Route exact path="/" render={() => ( <Search key="home" gifs={this.state.gifsHome} pagination={this.state.paginationHome} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile} pagOffset={this.state.homeOffset}/>)}/>
-            :<Route exact path="/" component={Home}/>
-          }
-
-          <Route exact path="/search" render={() => ( <Redirect to="/search/trending"/>)}/>
-          <Route exact path="/search/:name" render = {()=>
-            <Search key="searchTab" gifs={isMobile ? this.state.gifsSearch : this.state.gifsHome}
-              pagination={isMobile ? this.state.paginationSearch : this.state.paginationHome} onLoad={this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile} pagOffset={this.state.searchOffset} isSearchTab saveOffset={this.saveRouteOffset}/>}
+        <Route exact path="/search" render={() => ( <Redirect to="/search/trending"/>)}/>
+        <Route exact path="/search/:name" render = {()=>
+          <Search key="searchTab" gifs={isMobile ? this.state.gifsSearch : this.state.gifsHome}
+            pagination={isMobile ? this.state.paginationSearch : this.state.paginationHome} onLoad={this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile} pagOffset={this.state.searchOffset} isSearchTab saveOffset={this.saveRouteOffset}/>}
           />
           <Route exact path="/gif/:id" render ={ () => <Gifview gif={this.state.gifById} onLoad={this.getGifById} isMobile={isMobile}/>}/>
           <Route exact path="/random-gif" render={() => <Randomgif gif={this.state.randomGif} isMobile={isMobile}/>}/>

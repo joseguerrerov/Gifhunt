@@ -112,8 +112,6 @@ class Search extends Component {
 
   render() {
 
-    console.log(window.scrollY);
-
     const setMarginTop = () =>(
       this.props.isMobile ? '67px' : 'calc(2em - 1px)'
     )
