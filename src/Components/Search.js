@@ -32,20 +32,22 @@ class Search extends Component {
   }
 
   getMoreGifs = () =>{
+    //console.log(this.props.gifs.length)
     this.props.saveOffset(this.props.location.pathname, window.scrollY)
     if(this.props.isMobile && this.props.isSearchTab){
       this.props.onLoad(this.props.match.params.name, 51, this.props.gifs.length, 'search', true)
+      console.log('1')
+      console.log(this.props.gifs.length)
     }else{
       this.props.onLoad(this.props.match.params.name, 12, this.props.gifs.length, 'home', true)
     }
   }
 
   componentDidMount(){
-    console.log('mounting');
     this.state.scrollY > 0 ? window.scrollTo(0, this.state.scrollY) : window.scrollTo(0,0)
-    if(this.props.isMobile && this.props.isSearchTab){
+    if(this.props.isMobile && this.props.isSearchTab && this.props.gifs.length <=51){
       this.props.onLoad(this.props.match.params.name, 51, 0, 'search')
-    }else{
+    }else if(this.props.gifs.length <= 12){
       this.props.onLoad(this.props.match.params.name)
     }
 
@@ -77,6 +79,7 @@ class Search extends Component {
     if(this.props.match.params.name !== nextProps.match.params.name ){
       if(this.props.isMobile && nextProps.isSearchTab){
         this.props.onLoad(nextProps.match.params.name, 51, 0, 'search')
+        console.log('2');
       }else{
         this.props.onLoad(nextProps.match.params.name)
       }
