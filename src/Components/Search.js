@@ -31,8 +31,17 @@ class Search extends Component {
     })
   }
 
-  componentDidMount(){
+  getMoreGifs = () =>{
+    this.props.saveOffset(this.props.location.pathname, window.scrollY)
+    if(this.props.isMobile && this.props.isSearchTab){
+      this.props.onLoad(this.props.match.params.name, 51, this.props.gifs.length, 'search', true)
+    }else{
+      this.props.onLoad(this.props.match.params.name, 12, this.props.gifs.length, 'home', true)
+    }
+  }
 
+  componentDidMount(){
+    console.log('mounting');
     this.state.scrollY > 0 ? window.scrollTo(0, this.state.scrollY) : window.scrollTo(0,0)
     if(this.props.isMobile && this.props.isSearchTab){
       this.props.onLoad(this.props.match.params.name, 51, 0, 'search')
@@ -121,7 +130,7 @@ render() {
   )
 
   const setPadding = () => (
-    this.props.isMobile ? '0' : '0.5em'
+    this.props.isMobile ? '0 0 1em 0' : '0.5em'
   )
 
   const setQueryMargin = () =>(
@@ -157,12 +166,35 @@ render() {
       fontWeight: '300',
       fontSize: '0.8em',
       marginBottom: '1.5em'
+    },
+    buttonHolder:{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      margin: '1em'
+    },
+    button:{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#4285F4',
+      outline: 'none',
+      border: 'none',
+      color: '#fff',
+      fontWeight: '300',
+      padding: '10px 16px',
+      borderRadius: '5px',
+      cursor: 'pointer',
+      transition: 'all 2s cubic-bezier(0.23, 1, 0.32, 1) 0ms',
+      ':hover': {
+        backgroundColor: '#0059c1'
+      },
     }
   }
 
   return (
     <div style={styles.holder}>
-      {this.props.isMobile && this.props.isSearchTab
+      {this.props.isMobile && this.props.isSearchTab && this.state.result && this.state.pagination > 1
         ?(
           <div>
             <h3 style={styles.query}>{this.props.match.params.name}</h3>
@@ -177,6 +209,13 @@ render() {
       <div style = {styles.searchResults}>
         {this.getGifs()}
       </div>
+      {
+        this.state.result && this.state.pagination > 1
+        ?<div style={styles.buttonHolder}>
+          <button style={styles.button} onClick={this.getMoreGifs}>Load more</button>
+        </div>
+        :null
+      }
     </div>
   );
 }

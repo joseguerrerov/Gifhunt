@@ -40,33 +40,53 @@ class Appview extends Component {
     randomGif:{},
   }
 
+  saveInitialGifs = (response, query, tab) =>{
+    if(tab === 'home'){
+      this.setState({
+        gifsHome: response.data.data,
+        paginationHome: response.data.pagination
+      })
+    }else if (tab === 'search'){
+      this.setState({
+        gifsSearch: response.data.data,
+        paginationSearch: response.data.pagination,
+        searchTabPoint: `/search/${query}`,
+        query: query
+      })
+    }
+    this.setState({
+      title : query,
+      barStatus : 'active'
+    })
+  }
+
+  saveNewGifs = (response, query, tab) =>{
+    if(tab === 'home'){
+      this.setState({
+        gifsHome: [...this.state.gifsHome, ...response.data.data],
+        paginationHome: response.data.pagination
+      })
+    }else if (tab === 'search'){
+      this.setState({
+        gifsSearch: [...this.state.gifsSearch, ...response.data.data],
+        paginationSearch: response.data.pagination,
+        searchTabPoint: `/search/${query}`,
+        query: query
+      })
+    }
+  }
+
   //function to search
-  performSearch = (query = 'trending', limit = 12, pagination = 0, tab = 'home') =>{
+  performSearch = (query = 'trending', limit = 12, pagination = 0, tab = 'home', update = false) =>{
     let apiEndPoint
     if(query === 'trending'){
-      apiEndPoint =`https://api.giphy.com/v1/gifs/trending?api_key=1dbc2f313ec44971b8ee0815b6951dca&limit=${limit}`
+      apiEndPoint =`https://api.giphy.com/v1/gifs/trending?api_key=1dbc2f313ec44971b8ee0815b6951dca&limit=${limit}&offset=${pagination}`
     }else{
-      apiEndPoint = `https://api.giphy.com/v1/gifs/search?q=${query}&limit=${limit}&lang=est&api_key=dc6zaTOxFJmzC`
+      apiEndPoint = `https://api.giphy.com/v1/gifs/search?q=${query}&limit=${limit}&lang=est&api_key=dc6zaTOxFJmzC&offset=${pagination}`
     }
     axios.get(apiEndPoint)
     .then(response => {
-      if(tab === 'home'){
-        this.setState({
-          gifsHome: response.data.data,
-          paginationHome: response.data.pagination
-        })
-      }else if (tab === 'search'){
-        this.setState({
-          gifsSearch: response.data.data,
-          paginationSearch: response.data.pagination,
-          searchTabPoint: `/search/${query}`,
-          query: query
-        })
-      }
-      this.setState({
-        title : query,
-        barStatus : 'active'
-      })
+      update ? this.saveNewGifs(response,query,tab) : this.saveInitialGifs(response, query, tab)
       /*
       this.setState({
       gifs: [...this.state.gifsHome, ...response.data.data],
@@ -179,7 +199,8 @@ render() {
       <Switch location={isModal ? this.previousLocation : location}>
 
         {isMobile
-          ?<Route exact path="/" render={() => ( <Search key="home" gifs={this.state.gifsHome} pagination={this.state.paginationHome} onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile} pagOffset={this.state.homeOffset}/>)}/>
+          ?<Route exact path="/" render={() => ( <Search key="home" gifs={this.state.gifsHome} pagination={this.state.paginationHome}
+            onLoad = {this.performSearch} viewGif={this.getGifById} gifAction={this.setOffset} isMobile={isMobile} pagOffset={this.state.homeOffset} saveOffset={this.saveRouteOffset}/>)}/>
           :<Route exact path="/" component={Home}/>
         }
 
