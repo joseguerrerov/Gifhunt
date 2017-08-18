@@ -31,13 +31,10 @@ class Search extends Component {
     })
   }
 
-  getMoreGifs = () =>{
-    //console.log(this.props.gifs.length)
+  getMoreGifs = () => {
     this.props.saveOffset(this.props.location.pathname, window.scrollY)
     if(this.props.isMobile && this.props.isSearchTab){
       this.props.onLoad(this.props.match.params.name, 51, this.props.gifs.length, 'search', true)
-      console.log('1')
-      console.log(this.props.gifs.length)
     }else{
       this.props.onLoad(this.props.match.params.name, 12, this.props.gifs.length, 'home', true)
     }
@@ -101,7 +98,7 @@ class Search extends Component {
           embed={gif.images.fixed_height.url}
           slug={gif.slug}
           show={this.props.isMobile ? null :gif.id}
-          key={gif.id}
+          key={gif.id + Math.floor(Math.random() * 5) + 1  }
           loc={gif.id}
           user={gif.user}
           width="33.33%"

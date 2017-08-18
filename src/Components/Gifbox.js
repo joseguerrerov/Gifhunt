@@ -118,9 +118,6 @@ class Gifbox extends Component {
     this.props.isMobile &&  this.props.isSearchTab ? '1.5px' : '1em 0'
   )
 
-
-
-
   render() {
 
     const styles = {
