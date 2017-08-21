@@ -199,7 +199,7 @@ render() {
           <div>
             <h3 style={styles.query}>{this.props.match.params.name}</h3>
             {this.state.totalCount > 0
-              ?<p style={styles.count}>Encontramos {this.state.totalCount} resultados</p>
+              ?<p style={styles.count}>We found {this.state.totalCount} results</p>
               :null
             }
           </div>
