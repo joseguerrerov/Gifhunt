@@ -215,7 +215,7 @@ render() {
       {
         this.state.result && this.state.pagination > 1
         ?<div style={styles.buttonHolder}>
-          <button style={styles.button} onClick={this.getMoreGifs} type="button">Load more</button>
+          <button style={styles.button} onClick={this.getMoreGifs} type="button">Load more <i className="material-icons">refresh</i></button>
         </div>
         :null
       }
