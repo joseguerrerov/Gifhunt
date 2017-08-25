@@ -14,6 +14,10 @@ class Gifmodal extends Component {
   }
 
   componentDidMount(){
+    if(this.props.index + 4 === this.props.gifsLenght || this.props.index + 3 === this.props.gifsLenght
+      || this.props.index + 2 === this.props.gifsLenght || this.props.index + 1 === this.props.gifsLenght){
+        this.props.onLoad(this.props.match.params.name, 12, this.props.gifs.length, 'home', true)
+      }
     document.getElementsByTagName('body')[0].style.overflow = 'hidden'
     this.modal.focus()
     this.setState({
@@ -62,6 +66,9 @@ class Gifmodal extends Component {
 
   showMoreGifs = (delta) =>{
     this.props.nav(this.props.index + (delta))
+    if(this.props.index + 4 === this.props.gifsLenght){
+      this.props.onLoad(this.props.match.params.name, 12, this.props.gifs.length, 'home', true)
+    }
   }
 
   modalNavForward = (e) =>{

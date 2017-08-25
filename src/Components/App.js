@@ -31,6 +31,7 @@ class Appview extends Component {
   state ={
     gifsHome: [],
     gifsSearch: [],
+    gifsHomeLenght: 12,
     paginationHome: 1,
     paginationSearch: 1,
     searchTabPoint: '/search/trending',
@@ -44,7 +45,7 @@ class Appview extends Component {
     if(tab === 'home'){
       this.setState({
         gifsHome: response.data.data,
-        paginationHome: response.data.pagination
+        paginationHome: response.data.pagination,
       })
     }else if (tab === 'search'){
       this.setState({
@@ -64,7 +65,8 @@ class Appview extends Component {
     if(tab === 'home'){
       this.setState({
         gifsHome: [...this.state.gifsHome, ...response.data.data],
-        paginationHome: response.data.pagination
+        paginationHome: response.data.pagination,
+        gifsHomeLenght: this.state.gifsHome.length + 12
       })
     }else if (tab === 'search'){
       this.setState({
@@ -219,7 +221,7 @@ render() {
 
         {isModal
           ?<Route exact path="/gif/:id" render={() =>
-            <Gifmodal index={this.state.modalPos} nav={this.setOffset} gifByClick={this.state.gifByIdClick}/>}
+            <Gifmodal index={this.state.modalPos}  gifs={this.state.gifsHome} onLoad={this.performSearch} gifsLenght={this.state.gifsHomeLenght} nav={this.setOffset} gifByClick={this.state.gifByIdClick}/>}
           />
           : null
         }
