@@ -9,6 +9,7 @@ import InfiniteScroll from 'react-infinite-scroller'
 import Gifbox from './Gifbox'
 import Emptysearch from './Emptysearch'
 import Loading from './Loading'
+import FeatFooter from './FeatFooter'
 
 
 class Search extends Component {
@@ -17,7 +18,6 @@ class Search extends Component {
     result: true,
     pagination: this.props.pagination.count,
     totalCount: this.props.pagination.total_count,
-    scrollY: this.props.pagOffset,
   }
 
   gifAction = (index) => {
@@ -26,13 +26,10 @@ class Search extends Component {
 
   saveOffset = (route, pageOffset) =>{
     this.props.saveOffset(route, pageOffset)
-    this.setState({
-      scrollY: pageOffset
-    })
+    console.log('pageOffset');
   }
 
-  getMoreGifs = () => {
-    this.props.saveOffset(this.props.location.pathname, window.scrollY)
+  getMoreGifs = (e) => {
     if(this.props.isMobile && this.props.isSearchTab){
       this.props.onLoad(this.props.match.params.name, 51, this.props.gifs.length, 'search', true)
     }else{
@@ -41,7 +38,8 @@ class Search extends Component {
   }
 
   componentDidMount(){
-    this.state.scrollY > 0 ? window.scrollTo(0, this.state.scrollY) : window.scrollTo(0,0)
+    console.log(this.props.pagOffset, 'mount');
+    this.props.pagOffset > 0 ? window.scrollTo(0, this.props.pagOffset) : window.scrollTo(0,0)
     if(this.props.isMobile && this.props.isSearchTab && this.props.gifs.length <=51){
       this.props.onLoad(this.props.match.params.name, 51, 0, 'search')
     }else if(this.props.gifs.length <= 12){
@@ -51,8 +49,8 @@ class Search extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-
-    this.state.scrollY > 0 ? window.scrollTo(0, this.state.scrollY) : window.scrollTo(0, nextProps.pagOffset)
+    console.log(nextProps.pagOffset, 'will');
+    typeof nextProps.pagOffset !== 'undefined' && nextProps.pagOffset !== this.props.pagOffset ? window.scrollTo(0, nextProps.pagOffset) : null
     if(nextProps.pagination.count !== this.props.pagination.count){
       this.setState({
         pagination: nextProps.pagination.count
@@ -88,13 +86,14 @@ class Search extends Component {
   getGifs = () =>{
 
     const results = this.props.gifs
+    console.log(this.props.gifs);
     if(this.state.result && this.state.pagination > 1){
       return(
         results.map((gif, index) =>
         <Gifbox
           action={this.gifAction}
           offset={index}
-          fondoGif={this.props.isMobile && this.props.isSearchTab ? gif.images.preview_gif.url : gif.images.fixed_width.url}
+          fondoGif={this.props.isMobile && this.props.isSearchTab ? gif.images.original_still.url : gif.images.fixed_width.url}
           embed={gif.images.fixed_height.url}
           slug={gif.slug}
           show={this.props.isMobile ? null :gif.id}
@@ -137,6 +136,10 @@ render() {
     this.state.totalCount > 0 ? '5px' : '1em'
   )
 
+  const setPaddingBottom = () =>(
+    this.props.isMobile ? '70px' : '0'
+  )
+
   const styles = {
     searchResults: {
       minHeight: 'calc(100vh - 76px)',
@@ -149,7 +152,7 @@ render() {
     },
     holder:{
       marginTop: setMarginTop(),
-      paddingBottom: '70px',
+      paddingBottom: setPaddingBottom(),
       paddingTop: '1px'
     },
     query:{
@@ -171,7 +174,7 @@ render() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      margin: '1em'
+      margin: '1em 1em 4em 1em'
     },
     button:{
       display: 'flex',
@@ -212,10 +215,11 @@ render() {
       {
         this.state.result && this.state.pagination > 1
         ?<div style={styles.buttonHolder}>
-          <button style={styles.button} onClick={this.getMoreGifs}>Load more</button>
+          <button style={styles.button} onClick={this.getMoreGifs} type="button">Load more</button>
         </div>
         :null
       }
+      {this.props.isMobile? null: <FeatFooter/> }
     </div>
   );
 }

@@ -11,6 +11,8 @@ class FeatFooter extends Component{
 
     const styles = {
       holder:{
+        boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px',
+        backgroundColor: '#fff',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
