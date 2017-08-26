@@ -97,7 +97,7 @@ class Search extends Component {
           embed={gif.images.fixed_height.url}
           slug={gif.slug}
           show={this.props.isMobile ? null :gif.id}
-          key={gif.id + Math.floor(Math.random() * 5) + 1  }
+          key={gif.id +  Math.floor(Math.random() * 5) + 1  }
           loc={gif.id}
           user={gif.user}
           width="33.33%"
