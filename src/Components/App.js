@@ -167,7 +167,8 @@ componentWillUpdate(nextProps) {
 render() {
 
   const setTopNav = () =>{
-    if(this.props.location.pathname === "/" || this.props.location.pathname === "/random-gif" || this.props.location.pathname !== "/search/" || this.props.location.pathname !== "/gif/"){
+    if((this.props.location.pathname === "/" || this.props.location.pathname === "/random-gif") ||
+      (!this.props.location.pathname.includes("/search/") && !this.props.location.pathname.includes("/gif/"))){
       return(
         <Mobiletop/>
       )
